@@ -1,0 +1,15 @@
+/Users/rahilhabibli/Desktop/Corporation/Corporation.Infrastructure/bin/Debug/net6.0/Corporation.Infrastructure.deps.json
+/Users/rahilhabibli/Desktop/Corporation/Corporation.Infrastructure/bin/Debug/net6.0/Corporation.Infrastructure.dll
+/Users/rahilhabibli/Desktop/Corporation/Corporation.Infrastructure/bin/Debug/net6.0/Corporation.Infrastructure.pdb
+/Users/rahilhabibli/Desktop/Corporation/Corporation.Infrastructure/obj/Debug/net6.0/Corporation.Infrastructure.csproj.AssemblyReference.cache
+/Users/rahilhabibli/Desktop/Corporation/Corporation.Infrastructure/obj/Debug/net6.0/Corporation.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/Users/rahilhabibli/Desktop/Corporation/Corporation.Infrastructure/obj/Debug/net6.0/Corporation.Infrastructure.AssemblyInfoInputs.cache
+/Users/rahilhabibli/Desktop/Corporation/Corporation.Infrastructure/obj/Debug/net6.0/Corporation.Infrastructure.AssemblyInfo.cs
+/Users/rahilhabibli/Desktop/Corporation/Corporation.Infrastructure/obj/Debug/net6.0/Corporation.Infrastructure.csproj.CoreCompileInputs.cache
+/Users/rahilhabibli/Desktop/Corporation/Corporation.Infrastructure/obj/Debug/net6.0/Corporation.Infrastructure.dll
+/Users/rahilhabibli/Desktop/Corporation/Corporation.Infrastructure/obj/Debug/net6.0/refint/Corporation.Infrastructure.dll
+/Users/rahilhabibli/Desktop/Corporation/Corporation.Infrastructure/obj/Debug/net6.0/Corporation.Infrastructure.pdb
+/Users/rahilhabibli/Desktop/Corporation/Corporation.Infrastructure/obj/Debug/net6.0/ref/Corporation.Infrastructure.dll
+/Users/rahilhabibli/Desktop/Corporation/Corporation.Infrastructure/bin/Debug/net6.0/Corporation.Core.dll
+/Users/rahilhabibli/Desktop/Corporation/Corporation.Infrastructure/bin/Debug/net6.0/Corporation.Core.pdb
+/Users/rahilhabibli/Desktop/Corporation/Corporation.Infrastructure/obj/Debug/net6.0/Corporation.Infrastructure.csproj.CopyComplete

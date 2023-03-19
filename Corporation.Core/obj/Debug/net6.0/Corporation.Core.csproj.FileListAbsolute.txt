@@ -1,0 +1,12 @@
+/Users/rahilhabibli/Desktop/Corporation/Corporation.Core/bin/Debug/net6.0/Corporation.Core.deps.json
+/Users/rahilhabibli/Desktop/Corporation/Corporation.Core/bin/Debug/net6.0/Corporation.Core.dll
+/Users/rahilhabibli/Desktop/Corporation/Corporation.Core/bin/Debug/net6.0/Corporation.Core.pdb
+/Users/rahilhabibli/Desktop/Corporation/Corporation.Core/obj/Debug/net6.0/Corporation.Core.csproj.AssemblyReference.cache
+/Users/rahilhabibli/Desktop/Corporation/Corporation.Core/obj/Debug/net6.0/Corporation.Core.GeneratedMSBuildEditorConfig.editorconfig
+/Users/rahilhabibli/Desktop/Corporation/Corporation.Core/obj/Debug/net6.0/Corporation.Core.AssemblyInfoInputs.cache
+/Users/rahilhabibli/Desktop/Corporation/Corporation.Core/obj/Debug/net6.0/Corporation.Core.AssemblyInfo.cs
+/Users/rahilhabibli/Desktop/Corporation/Corporation.Core/obj/Debug/net6.0/Corporation.Core.csproj.CoreCompileInputs.cache
+/Users/rahilhabibli/Desktop/Corporation/Corporation.Core/obj/Debug/net6.0/Corporation.Core.dll
+/Users/rahilhabibli/Desktop/Corporation/Corporation.Core/obj/Debug/net6.0/refint/Corporation.Core.dll
+/Users/rahilhabibli/Desktop/Corporation/Corporation.Core/obj/Debug/net6.0/Corporation.Core.pdb
+/Users/rahilhabibli/Desktop/Corporation/Corporation.Core/obj/Debug/net6.0/ref/Corporation.Core.dll
