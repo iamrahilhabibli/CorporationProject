@@ -1,34 +1,38 @@
 ﻿<Properties StartupConfiguration="{BF2DEA78-6B93-4AB5-85F4-3CA412E57CCB}|Default">
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.Corporation.ConsoleApp PreferredExecutionTarget="MonoDevelop.Default" />
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Corporation.ConsoleApp/Program.cs">
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Corporation.Infrastructure/Services/CompanyServices.cs">
     <Files>
-      <File FileName="Corporation.ConsoleApp/Program.cs" Line="50" Column="101" />
-      <File FileName="Corporation.Infrastructure/Services/DepartmentServices.cs" Line="25" Column="14" />
-      <File FileName="Corporation.Infrastructure/Services/EmployeeServices.cs" Line="1" Column="1" />
-      <File FileName="Corporation.Infrastructure/Services/CompanyServices.cs" Line="33" Column="32" />
+      <File FileName="Corporation.ConsoleApp/Program.cs" Line="1" Column="1" />
+      <File FileName="Corporation.Infrastructure/Services/DepartmentServices.cs" Line="47" Column="104" />
+      <File FileName="Corporation.Infrastructure/Services/EmployeeServices.cs" />
+      <File FileName="Corporation.Infrastructure/Services/CompanyServices.cs" Line="44" Column="6" />
       <File FileName="Corporation.Infrastructure/Utilities/Helper.cs" />
       <File FileName="Corporation.Core/Entities/Employee.cs" />
-      <File FileName="Corporation.Core/Entities/Department.cs" Line="1" Column="1" />
+      <File FileName="Corporation.Core/Entities/Department.cs" />
       <File FileName="Corporation.Core/Entities/Company.cs" Line="1" Column="1" />
-      <File FileName="Corporation.Core/Entities/Businesses.cs" />
-      <File FileName="Corporation.Infrastructure/DbContextSim/AppDbContextSim.cs" Line="1" Column="1" />
-      <File FileName="Corporation.Infrastructure/Utilities/Exceptions/IdenticalCompanyNameException.cs" Line="8" Column="1" />
+      <File FileName="Corporation.Infrastructure/DbContextSim/AppDbContextSim.cs" />
+      <File FileName="Corporation.Core/Interfaces/IEntity.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Corporation" expanded="True">
-            <Node name="Corporation.ConsoleApp" expanded="True">
-              <Node name="Program.cs" selected="True" />
-            </Node>
+            <Node name="Corporation.ConsoleApp" expanded="True" />
             <Node name="Corporation.Core" expanded="True">
               <Node name="Entities" expanded="True" />
               <Node name="Interfaces" expanded="True" />
             </Node>
             <Node name="Corporation.Infrastructure" expanded="True">
               <Node name="DbContextSim" expanded="True" />
-              <Node name="Services" expanded="True" />
+              <Node name="Services" expanded="True">
+                <Node name="CompanyServices.cs" selected="True" />
+              </Node>
               <Node name="Utilities" expanded="True">
                 <Node name="Exceptions" expanded="True" />
               </Node>
@@ -36,11 +40,11 @@
           </Node>
         </State>
       </Pad>
+      <Pad Id="ClassPad">
+        <State name="__root__">
+          <Node name="Corporation" expanded="True" />
+        </State>
+      </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.ItemProperties.Corporation.ConsoleApp PreferredExecutionTarget="MonoDevelop.Default" />
 </Properties>

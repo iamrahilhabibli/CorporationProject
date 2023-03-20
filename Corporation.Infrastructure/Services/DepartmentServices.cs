@@ -28,6 +28,15 @@ public class DepartmentServices
         {
             throw new IdenticalNameException("This department has already been registered for your Company");
         }
+        foreach (var companies in AppDbContextSim.companies)
+        {
+            if (companies == null)
+            {
+                throw new ArgumentNullException();
+            }
+            else if (companies.Id == companyid) Console.WriteLine("Department successfully added!");
+            { break; }
+        }
         Department newDepartment = new(name, employeelimit, companyid);
         AppDbContextSim.departments[indexCounter++] = newDepartment;
     }
@@ -35,9 +44,9 @@ public class DepartmentServices
     {
         for (int i = 0; i < indexCounter; i++)
         {
-            Console.WriteLine($"Department belongs to Company ID: {AppDbContextSim.departments[i].Id}" +
+            Console.WriteLine($"\nDepartment belongs to Company ID: {AppDbContextSim.departments[i].Id}" +
                 $"\nDepartment Name: {AppDbContextSim.departments[i].Name}" +
-                $"\nHas Employee Limit: {AppDbContextSim.departments[i].EmployeeLimit}");
+                $"\nHas Employee Limit: {AppDbContextSim.departments[i].EmployeeLimit}\n");
         }
     }
 }

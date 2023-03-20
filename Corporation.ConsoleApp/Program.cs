@@ -9,8 +9,7 @@ DepartmentServices newDepartment = new DepartmentServices();
 while (true)
 {
     Console.WriteLine("WELCOME! Please select your option");
-    Console.WriteLine("**********************************");
-    Console.WriteLine("\n 0 - Exit \n 1 - To Create a Company \n 2 - Get list of Companies \n 3 - Create Department \n 4 - Get list of Departments ");
+    Console.WriteLine("0 - Exit \n1 - To Create a Company \n2 - Get list of Companies \n3 - Create Department \n4 - Get list of Departments ");
     int menuItems;
     string? userRes = Console.ReadLine();
     bool response = int.TryParse(userRes, out menuItems);
@@ -29,7 +28,7 @@ while (true)
                     Console.WriteLine("Enter Company name: ");
                     string companyName = Console.ReadLine();
                     newCompany.Create(companyName);
-                    Console.WriteLine($"Congratulations {companyName} has been created!");
+                    Console.WriteLine($"\nCongratulations {companyName} has been created!\n");
                 }
                 catch (Exception ex)
                 {

@@ -6,7 +6,7 @@ public class Department : IEntity
 {
     public int Id { get; set; }
     public string Name { get; set; }
-    public int EmployeeLimit { get; set; }
+    public int EmployeeLimit { get; }
     public int CompanyId { get; set; }
     private static int _count { get; set; }
 
@@ -14,7 +14,7 @@ public class Department : IEntity
     {
         Id = _count++;
     }
-    public Department(string name, int employeelimit, int companyid)
+    public Department(string name, int employeelimit, int companyid) : this()
     {
         this.Name = name;
         this.EmployeeLimit = employeelimit;
