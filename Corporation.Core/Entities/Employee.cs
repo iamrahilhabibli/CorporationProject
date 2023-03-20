@@ -6,7 +6,7 @@ public class Employee : IEntity
 {
     public string Name { get; set; }
     public string Surname { get; set; }
-    public int Id { get; set; }
+    public int Id { get; protected set; }
     public int DepartmentId { get; set; }
     private static int _count { get; set; }
     public double Salary { get; set; }

@@ -48,5 +48,9 @@ public class DepartmentServices
         Department newDepartment = new(name, employeelimit, companyid, companyname);
         AppDbContextSim.departments[indexCounter++] = newDepartment;
     }
+    public void Update(string newDepartmentName, int newEmployeeLimit)
+    {
+
+    }
 }
 
