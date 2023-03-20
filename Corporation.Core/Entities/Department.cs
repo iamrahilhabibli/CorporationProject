@@ -15,11 +15,11 @@ public class Department : IEntity
     {
         Id = _count++;
     }
-    public Department(string name, int employeelimit, int companyid) : this()
+    public Department(string name, int employeelimit, int companyid, string companyname) : this()
     {
         this.Name = name;
         this.EmployeeLimit = employeelimit;
-
+        this.CompanyName = companyname;
         this.CompanyId = companyid;
     }
 }

@@ -42,5 +42,37 @@ public class CompanyServices
             Console.WriteLine($"Company ID: {AppDbContextSim.companies[i].Id}, Company Name: {AppDbContextSim.companies[i].Name}");
         }
     }
+    public void GetAllDepartmentsByID(int id)
+    {
+        for (int i = 0; i < AppDbContextSim.departments.Length; i++)
+        {
+            if (AppDbContextSim.departments[i] is null)
+            {
+                break;
+            }
+            else if (AppDbContextSim.departments[i].CompanyId == id)
+            {
+                Console.WriteLine($"Department ID: {AppDbContextSim.departments[i].Id}\n" +
+                    $"Department Name: {AppDbContextSim.departments[i].Name}\n" +
+                    $"Employee Limit: {AppDbContextSim.departments[i].EmployeeLimit}");
+            }
+        }
+    }
+    public void GetAllDepartmentsByName(string name)
+    {
+        for (int i = 0; i < AppDbContextSim.departments.Length; i++)
+        {
+            if (AppDbContextSim.departments[i] is null)
+            {
+                break;
+            }
+            else if (AppDbContextSim.departments[i].CompanyName == name)
+            {
+                Console.WriteLine($"\nDepartment ID: {AppDbContextSim.departments[i].Id}\n" +
+                    $"Department Name: {AppDbContextSim.departments[i].Name}\n" +
+                    $"Employee Limit {AppDbContextSim.departments[i].EmployeeLimit}");
+            }
+        }
+    }
 }
 

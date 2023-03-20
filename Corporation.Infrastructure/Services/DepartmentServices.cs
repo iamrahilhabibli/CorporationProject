@@ -1,4 +1,5 @@
-﻿using Corporation.Core.Entities;
+﻿using System;
+using Corporation.Core.Entities;
 using Corporation.Infrastructure.DbContextSim;
 using Corporation.Infrastructure.Utilities.Exceptions;
 namespace Corporation.Infrastructure.Services;
@@ -7,9 +8,9 @@ public class DepartmentServices
 {
     int indexCounter = 0;
 
-    public void Create(string name, int employeelimit, int companyid)
+    public void Create(string name, int employeelimit, int companyid, string companyname)
     {
-        if (string.IsNullOrWhiteSpace(name))
+        if (string.IsNullOrWhiteSpace(name) || name.All(char.IsDigit))
         {
             throw new NullOrEmptyException("The department name must contain at least one character and cannot be left empty");
         }
@@ -33,7 +34,7 @@ public class DepartmentServices
 
         foreach (var companies in AppDbContextSim.companies)
         {
-            if (companies != null && companies.Id == companyid)
+            if (companies != null && companies.Id == companyid && companies.Name == companyname)
             {
                 companyExists = true;
                 Console.WriteLine($"Department Successfully added!");
@@ -44,17 +45,8 @@ public class DepartmentServices
         {
             throw new NonExistentEntityException("Company with given ID does not exist");
         }
-        Department newDepartment = new(name, employeelimit, companyid);
+        Department newDepartment = new(name, employeelimit, companyid, companyname);
         AppDbContextSim.departments[indexCounter++] = newDepartment;
-    }
-    public void GetAll()
-    {
-        for (int i = 0; i < indexCounter; i++)
-        {
-            Console.WriteLine($"\nDepartment belongs to Company ID: {AppDbContextSim.departments[i].Id}" +
-                $"\nDepartment Name: {AppDbContextSim.departments[i].Name}" +
-                $"\nHas Employee Limit: {AppDbContextSim.departments[i].EmployeeLimit}\n");
-        }
     }
 }
 

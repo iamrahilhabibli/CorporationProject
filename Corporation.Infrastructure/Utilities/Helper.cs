@@ -2,6 +2,6 @@
 
 public static class Helper
 {
-    public enum ConsoleMenu { Exit, CreateCompany, GetCompanyList, CreateDepartment, GetDepartmentsList };
+    public enum ConsoleMenu { Exit, CreateCompany, GetCompanyList, CreateDepartment, GetListOfDepartmentsByID, GetListOfDepartmentsByName };
 }
 
