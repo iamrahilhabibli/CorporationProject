@@ -8,18 +8,22 @@ public class DepartmentServices
 {
     int indexCounter = 0;
 
-    public void Create(string name, int employeelimit, int companyid, string companyname)
+    public void Create(string departmentName, int employeelimit, int companyid, string companyname)
     {
-        if (string.IsNullOrWhiteSpace(name) || name.All(char.IsDigit))
+        if (string.IsNullOrWhiteSpace(departmentName) || departmentName.All(char.IsDigit))
         {
             throw new NullOrEmptyException("The department name must contain at least one character and cannot be left empty");
+        }
+        else if (departmentName.All(char.IsDigit) || System.Text.RegularExpressions.Regex.IsMatch(departmentName, "[^a-zA-Z0-9 ]"))
+        {
+            throw new NonDigitException("A company name must include at least one non-digit character and can not consist of only digits and/or contain symbols.");
         }
 
         bool depExists = false;
 
         for (int i = 0; i < indexCounter; i++)
         {
-            if (AppDbContextSim.departments[i].Name.ToUpper() == name.ToUpper() && AppDbContextSim.departments[i].CompanyId == companyid)
+            if (AppDbContextSim.departments[i].Name.ToUpper() == departmentName.ToUpper() && AppDbContextSim.departments[i].CompanyId == companyid)
             {
                 depExists = true;
                 break;
@@ -45,12 +49,20 @@ public class DepartmentServices
         {
             throw new NonExistentEntityException("Company with given ID and/or name does not exist");
         }
-        Department newDepartment = new(name, employeelimit, companyid, companyname);
+        Department newDepartment = new(departmentName, employeelimit, companyid, companyname);
         AppDbContextSim.departments[indexCounter++] = newDepartment;
     }
-    public void Update(string newDepartmentName, int newEmployeeLimit)
+    public void Update(int departmentId, string newDepartmentName, int newEmployeeLimit)
     {
-
+        for (int i = 0; i < AppDbContextSim.departments.Length; i++)
+        {
+            if (i == departmentId)
+            {
+                AppDbContextSim.departments[i].Name = newDepartmentName;
+                AppDbContextSim.departments[i].EmployeeLimit = newEmployeeLimit;
+                break;
+            }
+        }
     }
 }
 

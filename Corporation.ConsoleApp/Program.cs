@@ -10,7 +10,7 @@ DepartmentServices newDepartment = new DepartmentServices();
 while (true)
 {
     Console.WriteLine("WELCOME! Please select your option");
-    Console.WriteLine("0 - Exit \n1 - To Create a Company \n2 - Get list of Companies \n3 - Create Department \n4 - Get list of Departments by Company ID \n5- Get list of Departments by Company Name");
+    Console.WriteLine("0 - Exit \n1 - To Create a Company \n2 - Get list of Companies \n3 - Create Department \n4 - Get list of Departments by Company ID \n5 - Get list of Departments by Company Name \n6 - Update Department");
     int menuItems;
     string? userRes = Console.ReadLine();
     bool response = int.TryParse(userRes, out menuItems);
@@ -45,9 +45,9 @@ while (true)
             dep_name:
                 Console.WriteLine("Enter Department Name");
                 string departmentName = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(departmentName) || departmentName.All(char.IsDigit))
+                if (string.IsNullOrWhiteSpace(departmentName) || departmentName.All(char.IsDigit) || System.Text.RegularExpressions.Regex.IsMatch(departmentName, "[^a-zA-Z0-9 ]"))
                 {
-                    Console.WriteLine("Department name can not be left blank or contain only integer");
+                    Console.WriteLine("Department name can not be left blank, contain only integer and/or contain symbols");
                     goto dep_name;
                 }
             limit_range:
@@ -94,16 +94,34 @@ while (true)
                 }
                 newCompany.GetAllDepartmentsByID(listById);
                 break;
+
             case (int)Helper.ConsoleMenu.GetListOfDepartmentsByName:
             lisiting_departments_byName:
                 Console.WriteLine("Enter the name of your Company");
                 newCompany.GetAll();
                 string listByNameResponse = Console.ReadLine();
                 newCompany.GetAllDepartmentsByName(listByNameResponse);
-
                 break;
             default:
                 Console.WriteLine("Please select a valid option from the provided menu.");
+                break;
+
+            case (int)Helper.ConsoleMenu.UpdateDepartment:
+                Console.WriteLine("Please input the name of your Company to modify department parameters");
+                string companyResponse = Console.ReadLine();
+                newCompany.GetAllDepartmentsByName(companyResponse);
+                Console.WriteLine("Enter Department ID you wish to modify");
+                int updateByName;
+                string updateResponse = Console.ReadLine();
+                if (!int.TryParse(updateResponse, out updateByName))
+                {
+                    Console.WriteLine("Enter correct format");
+                }
+                Console.WriteLine("Enter new Name for your Department");
+                string newDepName = Console.ReadLine();
+                Console.WriteLine("Enter new emp limit");
+                int newEmpLimit = int.Parse(Console.ReadLine());
+                newDepartment.Update(updateByName, newDepName, newEmpLimit);
                 break;
         }
     }

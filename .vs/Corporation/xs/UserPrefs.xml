@@ -2,14 +2,14 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Corporation.Infrastructure/Services/DepartmentServices.cs">
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Corporation.ConsoleApp/Program.cs">
     <Files>
-      <File FileName="Corporation.ConsoleApp/Program.cs" Line="100" Column="37" />
-      <File FileName="Corporation.Infrastructure/Services/DepartmentServices.cs" Line="46" Column="1" />
-      <File FileName="Corporation.Infrastructure/Services/EmployeeServices.cs" Line="1" Column="1" />
-      <File FileName="Corporation.Infrastructure/Services/CompanyServices.cs" Line="68" Column="14" />
-      <File FileName="Corporation.Infrastructure/Utilities/Helper.cs" Line="5" Column="138" />
+      <File FileName="Corporation.ConsoleApp/Program.cs" Line="80" Column="18" />
+      <File FileName="Corporation.Infrastructure/Services/DepartmentServices.cs" Line="16" Column="10" />
+      <File FileName="Corporation.Infrastructure/Services/EmployeeServices.cs" Line="5" Column="30" />
+      <File FileName="Corporation.Infrastructure/Services/CompanyServices.cs" Line="21" Column="1" />
+      <File FileName="Corporation.Infrastructure/Utilities/Helper.cs" />
       <File FileName="Corporation.Core/Entities/Employee.cs" />
       <File FileName="Corporation.Core/Entities/Department.cs" />
       <File FileName="Corporation.Core/Entities/Company.cs" />
@@ -20,16 +20,16 @@
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Corporation" expanded="True">
-            <Node name="Corporation.ConsoleApp" expanded="True" />
+            <Node name="Corporation.ConsoleApp" expanded="True">
+              <Node name="Program.cs" selected="True" />
+            </Node>
             <Node name="Corporation.Core" expanded="True">
               <Node name="Entities" expanded="True" />
               <Node name="Interfaces" expanded="True" />
             </Node>
             <Node name="Corporation.Infrastructure" expanded="True">
               <Node name="DbContextSim" expanded="True" />
-              <Node name="Services" expanded="True">
-                <Node name="DepartmentServices.cs" selected="True" />
-              </Node>
+              <Node name="Services" expanded="True" />
               <Node name="Utilities" expanded="True">
                 <Node name="Exceptions" expanded="True" />
               </Node>
@@ -40,6 +40,6 @@
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.Corporation.ConsoleApp PreferredExecutionTarget="MonoDevelop.Default" />
+  <MultiItemStartupConfigurations />
 </Properties>

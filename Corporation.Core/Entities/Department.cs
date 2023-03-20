@@ -6,7 +6,7 @@ public class Department : IEntity
 {
     public int Id { get; set; }
     public string Name { get; set; }
-    public int EmployeeLimit { get; }
+    public int EmployeeLimit { get; set; }
     public int CompanyId { get; set; }
     public string CompanyName { get; set; }
     private static int _count { get; set; }
