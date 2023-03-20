@@ -1,5 +1,5 @@
 ﻿namespace Corporation.Infrastructure.Services;
-
+using System;
 using Corporation.Core.Entities;
 using Corporation.Infrastructure.DbContextSim;
 using Corporation.Infrastructure.Utilities.Exceptions;
@@ -14,7 +14,7 @@ public class CompanyServices
         {
             throw new NullOrEmptyException("The company name must contain at least one character and cannot be left empty");
         }
-        else if (companyName.All(char.IsDigit) || System.Text.RegularExpressions.Regex.IsMatch(companyName, "[^a-zA-Z0-9]"))
+        else if (companyName.All(char.IsDigit) || System.Text.RegularExpressions.Regex.IsMatch(companyName, "[^a-zA-Z0-9 ]"))
         {
             throw new NonDigitException("A company name must include at least one non-digit character and can not consist of only digits and/or contain symbols.");
         }
@@ -66,7 +66,7 @@ public class CompanyServices
             {
                 break;
             }
-            else if (AppDbContextSim.departments[i].CompanyName == name)
+            else if (AppDbContextSim.departments[i].CompanyName.ToUpper() == name.ToUpper())
             {
                 Console.WriteLine($"\nDepartment ID: {AppDbContextSim.departments[i].Id}\n" +
                     $"Department Name: {AppDbContextSim.departments[i].Name}\n" +

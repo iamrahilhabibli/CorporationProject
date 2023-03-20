@@ -100,6 +100,7 @@ while (true)
                 newCompany.GetAll();
                 string listByNameResponse = Console.ReadLine();
                 newCompany.GetAllDepartmentsByName(listByNameResponse);
+
                 break;
             default:
                 Console.WriteLine("Please select a valid option from the provided menu.");

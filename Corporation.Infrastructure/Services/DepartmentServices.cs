@@ -34,7 +34,7 @@ public class DepartmentServices
 
         foreach (var companies in AppDbContextSim.companies)
         {
-            if (companies != null && companies.Id == companyid && companies.Name == companyname)
+            if (companies != null && companies.Id == companyid && companies.Name.ToUpper() == companyname.ToUpper())
             {
                 companyExists = true;
                 Console.WriteLine($"Department Successfully added!");
@@ -43,7 +43,7 @@ public class DepartmentServices
         }
         if (!companyExists)
         {
-            throw new NonExistentEntityException("Company with given ID does not exist");
+            throw new NonExistentEntityException("Company with given ID and/or name does not exist");
         }
         Department newDepartment = new(name, employeelimit, companyid, companyname);
         AppDbContextSim.departments[indexCounter++] = newDepartment;
