@@ -59,9 +59,16 @@ while (true)
                     Console.WriteLine("The limit range can only contain integer");
                     goto limit_range;
                 }
+            company_Id:
                 Console.WriteLine("Enter Company ID");
                 newCompany.GetAll();
-                int departmentCompanyId = int.Parse(Console.ReadLine());
+                int departmentCompanyId;
+                string depCompIdResponse = Console.ReadLine();
+                if (!int.TryParse(depCompIdResponse, out departmentCompanyId))
+                {
+                    Console.WriteLine("Incorrect format please enter an integer corresponding to your Companies unique ID");
+                    goto company_Id;
+                }
                 newDepartment.Create(departmentName, employeeLimit, departmentCompanyId);
                 break;
 

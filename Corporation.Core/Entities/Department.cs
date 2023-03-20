@@ -8,6 +8,7 @@ public class Department : IEntity
     public string Name { get; set; }
     public int EmployeeLimit { get; }
     public int CompanyId { get; set; }
+    public string CompanyName { get; set; }
     private static int _count { get; set; }
 
     public Department()
@@ -18,6 +19,7 @@ public class Department : IEntity
     {
         this.Name = name;
         this.EmployeeLimit = employeelimit;
+
         this.CompanyId = companyid;
     }
 }

@@ -28,14 +28,21 @@ public class DepartmentServices
         {
             throw new IdenticalNameException("This department has already been registered for your Company");
         }
+
+        bool companyExists = false;
+
         foreach (var companies in AppDbContextSim.companies)
         {
-            if (companies == null)
+            if (companies != null && companies.Id == companyid)
             {
-                throw new ArgumentNullException();
+                companyExists = true;
+                Console.WriteLine($"Department Successfully added!");
+                break;
             }
-            else if (companies.Id == companyid) Console.WriteLine("Department successfully added!");
-            { break; }
+        }
+        if (!companyExists)
+        {
+            throw new NonExistentEntityException("Company with given ID does not exist");
         }
         Department newDepartment = new(name, employeelimit, companyid);
         AppDbContextSim.departments[indexCounter++] = newDepartment;
