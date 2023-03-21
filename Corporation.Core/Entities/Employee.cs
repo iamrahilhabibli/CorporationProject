@@ -8,6 +8,7 @@ public class Employee : IEntity
     public string Surname { get; set; }
     public int Id { get; protected set; }
     public int DepartmentId { get; set; }
+    public string CompanyName { get; set; }
     private static int _count { get; set; }
     public double Salary { get; set; }
 
@@ -15,11 +16,13 @@ public class Employee : IEntity
     {
         Id = _count++;
     }
-    public Employee(string name, string surname, double salary) : this()
+    public Employee(string name, string surname, double salary, string companyname, int departmentid) : this()
     {
         this.Name = name;
         this.Surname = surname;
         this.Salary = salary;
+        this.CompanyName = companyname;
+        this.DepartmentId = departmentid;
     }
 }
 
