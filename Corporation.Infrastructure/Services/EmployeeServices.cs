@@ -37,15 +37,31 @@ public class EmployeeServices
         Employee newEmployee = new Employee(name, surname, salary, companyname, departmentid);
         AppDbContextSim.employees[indexCounter++] = newEmployee;
     }
-    public void GetAll()
+    public void GetAll() // SHOW DEPARTMENT NAME 
     {
         for (int i = 0; i < indexCounter; i++)
         {
             Console.WriteLine($"Employee ID: {AppDbContextSim.employees[i].Id}\n" +
-                $"Employee Name: {AppDbContextSim.employees[i].Name} \n" +
-                $"Employee Surname: {AppDbContextSim.employees[i].Surname}\n" +
-                $"Employee Company: {AppDbContextSim.employees[i].CompanyName}\n" +
-                $"Employee Department: {AppDbContextSim.employees[i].DepartmentId}\n");
+                $"Name: {AppDbContextSim.employees[i].Name} \n" +
+                $"Surname: {AppDbContextSim.employees[i].Surname}\n" +
+                $"Company: {AppDbContextSim.employees[i].CompanyName}\n" +
+                $"Department: {AppDbContextSim.employees[i].DepartmentId}\n");
+        }
+    }
+    public void GetAllByDepartmentId(int id)
+    {
+        for (int i = 0; i < AppDbContextSim.employees.Length; i++)
+        {
+            if (AppDbContextSim.employees[i] is null)
+            {
+                break;
+            }
+            else if (AppDbContextSim.employees[i].DepartmentId == id)
+            {
+                Console.WriteLine($"Employees ID: {AppDbContextSim.employees[i].Id}\n" +
+                    $"Name: {AppDbContextSim.employees[i].Name}\n" +
+                    $"Surname: {AppDbContextSim.employees[i].Surname}");
+            }
         }
     }
 }
