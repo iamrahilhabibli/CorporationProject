@@ -6,7 +6,7 @@ namespace Corporation.Infrastructure.Services;
 
 public class DepartmentServices
 {
-    int indexCounter = 0;
+    public static int indexCounter = 0;
 
     public void Create(string departmentName, int employeelimit, int companyid, string companyname)
     {
@@ -62,5 +62,6 @@ public class DepartmentServices
             }
         }
     }
+    public void AddEmployee(Employee employee)
 }
 

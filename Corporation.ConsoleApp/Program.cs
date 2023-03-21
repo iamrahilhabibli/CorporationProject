@@ -17,7 +17,8 @@ while (true)
         "4 - Get list of Departments by Company ID \n" +
         "5 - Get list of Departments by Company Name \n" +
         "6 - Update Department \n" +
-        "7 - Add Employee to your Department\n");
+        "7 - Add Employee to Companies Department \n" +
+        "8 - Get List of All Employees");
     int menuItems;
     string? userRes = Console.ReadLine();
     bool response = int.TryParse(userRes, out menuItems);
@@ -139,26 +140,56 @@ while (true)
                 newDepartment.Update(updateByName, newDepName, newEmpLimit);
                 break;
 
-                //case (int)Helper.ConsoleMenu.AddEmployee:
-                //    try
-                //    {
-                //        Console.WriteLine("Enter employee name: ");
-                //        string nameResponse = Console.ReadLine();
-                //        Console.WriteLine("Enter employee surname: ");
-                //        string surnameResponse = Console.ReadLine();
-                //        Console.WriteLine("Enter employee salary: ");
-                //        double doubleSalaryResponse;
-                //        string salaryResponse = Console.ReadLine();
-                //        if (!double.TryParse(salaryResponse, out doubleSalaryResponse))
-                //        {
-                //            Console.WriteLine("Incorrect format for Salary"); // show the correct format
-                //        }
-                //        newEmployee.Create(nameResponse, surnameResponse, doubleSalaryResponse);
-                //    }
-                //    catch (Exception ex)
-                //    {
-                //        Console.WriteLine(ex.Message);
-                //    }
+            case (int)Helper.ConsoleMenu.AddEmployee:
+            name_response:
+                Console.WriteLine("Enter employee name: ");
+                string nameResponse = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(nameResponse) || nameResponse.All(char.IsDigit) || System.Text.RegularExpressions.Regex.IsMatch(nameResponse, "[^a-zA-Z0-9 -]"))
+                {
+                    Console.WriteLine("Name field can not be empty,contain symbols or include digits");
+                    goto name_response;
+                }
+            surname_response:
+                Console.WriteLine("Enter employee surname");
+                string surnameResponse = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(surnameResponse) || surnameResponse.All(char.IsDigit) || System.Text.RegularExpressions.Regex.IsMatch(surnameResponse, "[^a-zA-Z0-9 -]"))
+                {
+                    Console.WriteLine("Surname field can not be empty,contain symbols or include digits");
+                    goto surname_response;
+                }
+            salary_response:
+                Console.WriteLine("Enter employee Salary");
+                double doubleSalaryResponse;
+                string salaryResponse = Console.ReadLine();
+                if (!double.TryParse(salaryResponse, out doubleSalaryResponse))
+                {
+                    Console.WriteLine("Incorrect format for Salary"); // show the correct format
+                    goto salary_response;
+                }
+            employee_company:
+                Console.WriteLine("Enter your company name: ");
+                newCompany.GetAll();
+                string companyNameResponse = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(companyNameResponse) || companyNameResponse.All(char.IsDigit) || System.Text.RegularExpressions.Regex.IsMatch(companyNameResponse, "[^a-zA-Z0-9 &-]"))
+                {
+                    Console.WriteLine("Company name field can not be empty,contain symbols that are not allowed or include digits");
+                    goto employee_company;
+                }
+                newCompany.GetAllDepartmentsByName(companyNameResponse);
+                Console.WriteLine();
+                Console.WriteLine("Enter department ID: ");
+                int departmentIdResponse;
+                string depIdResponse = Console.ReadLine();
+                if (!int.TryParse(depIdResponse, out departmentIdResponse))
+                {
+                    Console.WriteLine("You must enter unique ID of the department from the list");
+                }
+                newEmployee.Create(nameResponse, surnameResponse, doubleSalaryResponse, companyNameResponse, departmentIdResponse);
+                Console.WriteLine("Employee Successfully added!");
+                break;
+
+            case (int)Helper.ConsoleMenu.GetListOfAllEmployees:
+                newEmployee.GetAll();
                 break;
         }
     }

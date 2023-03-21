@@ -6,7 +6,7 @@ using Corporation.Infrastructure.Utilities.Exceptions;
 
 public class CompanyServices
 {
-    private static int indexCounter = 0;
+    public static int indexCounter = 0;
 
     public void Create(string companyName)
     {
@@ -35,7 +35,7 @@ public class CompanyServices
         Company newCompany = new Company(companyName);
         AppDbContextSim.companies[indexCounter++] = newCompany;
     }
-    public void GetAll()
+    public void GetAll() // condition when empty is required
     {
         for (int i = 0; i < indexCounter; i++)
         {
