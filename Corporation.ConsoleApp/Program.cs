@@ -19,7 +19,8 @@ while (true)
         "6 - Update Department \n" +
         "7 - Add Employee to Companies Department \n" +
         "8 - Get List of All Employees \n" +
-        "9 - Get List of Employees by Department Id");
+        "9 - Get List of Employees by Department Id \n" +
+        "10 - Get List of Employees By Department Name");
     int menuItems;
     string? userRes = Console.ReadLine();
     bool response = int.TryParse(userRes, out menuItems);
@@ -141,7 +142,7 @@ while (true)
                 newDepartment.Update(updateByName, newDepName, newEmpLimit);
                 break;
 
-            case (int)Helper.ConsoleMenu.AddEmployee:
+            case (int)Helper.ConsoleMenu.AddEmployeeToCompanyAndDepartment:
             name_response:
                 Console.WriteLine("Enter employee name: ");
                 string nameResponse = Console.ReadLine();
@@ -211,6 +212,13 @@ while (true)
                     Console.WriteLine("Choose valid Department ID");
                 }
                 newEmployee.GetAllByDepartmentId(department_id_response);
+                break;
+
+            case (int)Helper.ConsoleMenu.GetListOfEmployeesByDepName:
+                Console.WriteLine("Enter your Company name: ");
+                newCompany.GetAll();
+
+                Console.ReadLine();
                 break;
         }
     }

@@ -11,9 +11,10 @@ public static class Helper
         GetListOfDepartmentsByID,
         GetListOfDepartmentsByName,
         UpdateDepartment,
-        AddEmployee,
+        AddEmployeeToCompanyAndDepartment,
         GetListOfAllEmployees,
-        GetListOfEmployeesByDepID
+        GetListOfEmployeesByDepID,
+        GetListOfEmployeesByDepName,
     };
 }
 

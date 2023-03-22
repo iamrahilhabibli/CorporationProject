@@ -6,7 +6,7 @@ public class Employee : IEntity
 {
     public string Name { get; set; }
     public string Surname { get; set; }
-    public int Id { get; protected set; }
+    public int Id { get; }
     public int DepartmentId { get; set; }
     public string CompanyName { get; set; }
     private static int _count { get; set; }
@@ -23,6 +23,10 @@ public class Employee : IEntity
         this.Salary = salary;
         this.CompanyName = companyname;
         this.DepartmentId = departmentid;
+    }
+    public override string ToString()
+    {
+        return $"Employee Id: {Id}, Name: {Name}, Surname: {Surname}";
     }
 }
 

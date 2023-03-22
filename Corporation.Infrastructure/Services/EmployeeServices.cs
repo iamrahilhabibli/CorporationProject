@@ -9,6 +9,7 @@ using Corporation.Infrastructure.Utilities.Exceptions;
 public class EmployeeServices
 {
     public static int indexCounter = 0;
+    public static int employeeCounter = 0;
 
     public void Create(string name, string surname, double salary, string companyname, int departmentid)
     {
@@ -64,5 +65,9 @@ public class EmployeeServices
             }
         }
     }
+    //public void GetAllByDepartmentName(string name)
+    //{
+
+    //}
 }
 
