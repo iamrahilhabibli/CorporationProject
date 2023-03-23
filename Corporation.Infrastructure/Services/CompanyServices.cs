@@ -6,7 +6,7 @@ using Corporation.Infrastructure.Utilities.Exceptions;
 
 public class CompanyServices
 {
-    private static int IndexCounter { get; set; } = 0;
+    public static int indexCounter = 0;
 
     public void Create(string companyName)
     {
@@ -20,7 +20,7 @@ public class CompanyServices
         }
 
         bool compNameExists = false;
-        for (int i = 0; i < IndexCounter; i++)
+        for (int i = 0; i < indexCounter; i++)
         {
             if (AppDbContextSim.companies[i].Name.ToUpper() == companyName.ToUpper())
             {
@@ -33,10 +33,14 @@ public class CompanyServices
             throw new IdenticalNameException("This company name has already been registered. Please choose a different name for your new company");
         }
         Company newCompany = new Company(companyName);
-        AppDbContextSim.companies[IndexCounter++] = newCompany;
+        AppDbContextSim.companies[indexCounter++] = newCompany;
     }
     public void GetAll() // condition when empty is required
     {
+        if (AppDbContextSim.companies[0] is null)
+        {
+            throw new NullOrEmptyException("A company has not been created!");
+        }
         for (int i = 0; i < indexCounter; i++)
         {
             Console.WriteLine($"Company ID: {AppDbContextSim.companies[i].Id}, Company Name: {AppDbContextSim.companies[i].Name}");

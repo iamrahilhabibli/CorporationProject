@@ -21,6 +21,7 @@ while (true)
         "8 - Get List of All Employees \n" +
         "9 - Get List of Employees by Department Id \n" +
         "10 - Get List of Employees By Department Name");
+
     int menuItems;
     string? userRes = Console.ReadLine();
     bool response = int.TryParse(userRes, out menuItems);
@@ -32,22 +33,28 @@ while (true)
             case (int)Helper.ConsoleMenu.Exit:
                 Environment.Exit(0);
                 break;
-            case (int)Helper.ConsoleMenu.CreateCompany: // SEEMS OK, FURTHER INSPECTION SHOULD BE DONE
-                try
+
+            case (int)Helper.ConsoleMenu.CreateCompany:
+                bool companyCreated = false;
+                while (!companyCreated) // repeat until company is successfully created
                 {
-                    Console.WriteLine("Enter Company name: ");
-                    string companyName = Console.ReadLine();
-                    newCompany.Create(companyName);
-                    Console.WriteLine($"\nCongratulations {companyName} has been created!\n");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
+                    try
+                    {
+                        Console.WriteLine("Enter Company name: ");
+                        string companyName = Console.ReadLine();
+                        newCompany.Create(companyName);
+                        Console.WriteLine($"\nCongratulations {companyName} has been created!\n");
+                        companyCreated = true; // to exit the loop
+                    }
+                    catch (Exception ex) { Console.WriteLine(ex.Message); } // loop will contin
                 }
                 break;
+
             case (int)Helper.ConsoleMenu.GetCompanyList: // SEEMS OK, FURTHER INSPECTION SHOULD BE DONE
-                newCompany.GetAll();
+                try { newCompany.GetAll(); }
+                catch (Exception ex) { Console.WriteLine(ex.Message); }
                 break;
+
             case (int)Helper.ConsoleMenu.CreateDepartment:
             dep_name:
                 Console.WriteLine("Enter Department Name");
@@ -187,6 +194,7 @@ while (true)
                     Console.WriteLine("You must enter unique ID of the department from the list");
                 }
                 newEmployee.Create(nameResponse, surnameResponse, doubleSalaryResponse, companyNameResponse, departmentIdResponse);
+
                 Console.WriteLine("Employee Successfully added!");
                 break;
 

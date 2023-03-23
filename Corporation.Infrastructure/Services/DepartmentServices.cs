@@ -62,5 +62,7 @@ public class DepartmentServices
             }
         }
     }
+    public void AddEmployee(Employee newEmployee, int departmentid)
+    { }
 }
 
