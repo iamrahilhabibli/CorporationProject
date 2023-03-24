@@ -35,17 +35,16 @@ public class CompanyServices
         Company newCompany = new Company(companyName);
         AppDbContextSim.companies[indexCounter++] = newCompany;
     }
-    public void GetAll() // condition when empty is required
+    public void GetAll()
     {
-        if (AppDbContextSim.companies[0] is null)
+        if (AppDbContextSim.companies[0] is null) { throw new NullOrEmptyException("A company has not been created!"); }
+        foreach (Company company in AppDbContextSim.companies)
         {
-            throw new NullOrEmptyException("A company has not been created!");
-        }
-        for (int i = 0; i < indexCounter; i++)
-        {
-            Console.WriteLine($"Company ID: {AppDbContextSim.companies[i].Id}, Company Name: {AppDbContextSim.companies[i].Name}");
+            if (company is null) break;
+            Console.WriteLine($"Company ID: {company.Id}, Company Name: {company.Name}");
         }
     }
+
     public void GetAllDepartmentsByID(int id)
     {
         for (int i = 0; i < AppDbContextSim.departments.Length; i++)

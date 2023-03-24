@@ -1,4 +1,5 @@
-﻿using Corporation.Core.Entities;
+﻿using System.Data;
+using Corporation.Core.Entities;
 using Corporation.Infrastructure.DbContextSim;
 using Corporation.Infrastructure.Services;
 using Corporation.Infrastructure.Utilities;
@@ -12,18 +13,18 @@ Employee new_employee = new Employee();
 
 while (true)
 {
-    Console.WriteLine("WELCOME! Please select your option");
-    Console.WriteLine("0 - Exit \n1 - To Create a Company \n" +
-        "2 - Get list of Companies \n" +
-        "3 - Create Department \n" +
-        "4 - Get list of Departments by Company ID \n" +
-        "5 - Get list of Departments by Company Name \n" +
-        "6 - Update Department \n" +
-        "7 - Add Employee \n" +
-        "8 - Get List of All Employees \n" +
-        "9 - Get List of Employees by Department Id \n" +
-        "10 - Search Employee by Name");
-
+    Console.WriteLine("COMPANY MANAGEMENT\n\nPlease select an option:\n-------------------------\n" +
+        "0. Exit\n" +
+        "1. Create a new company\n" +
+        "2. Get a list of all companies\n" +
+        "3. Create a new department\n" +
+        "4. Get a list of departments by company ID\n" +
+        "5. Get a list of departments by company name\n" +
+        "6. Update a department\n" +
+        "7. Add a new employee\n" +
+        "8. Get a list of all employees\n" +
+        "9. Get a list of employees by department ID\n" +
+        "10. Search for an employee by name\n");
     int menuItems;
     string? userRes = Console.ReadLine();
     bool response = int.TryParse(userRes, out menuItems);
@@ -101,8 +102,10 @@ while (true)
                 }
                 try { newDepartment.Create(departmentName, employeeLimit, departmentCompanyId, company_name); }
                 catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); goto company_Id; }
-                catch (Exception ex) { Console.WriteLine(ex.Message); }
+                catch (Corporation.Infrastructure.Utilities.Exceptions.CapacityLimitException ex) { Console.WriteLine(ex.Message); }
                 break;
+
+
 
             case (int)Helper.ConsoleMenu.GetListOfDepartmentsByID:
             listing_departments_byId:
