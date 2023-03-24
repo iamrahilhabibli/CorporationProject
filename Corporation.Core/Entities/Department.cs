@@ -1,4 +1,5 @@
-﻿using Corporation.Core.Interface;
+﻿using System.Runtime.Serialization;
+using Corporation.Core.Interface;
 
 namespace Corporation.Core.Entities;
 
@@ -7,7 +8,7 @@ public class Department : IEntity
     public int Id { get; set; }
     public string Name { get; set; }
     public int EmployeeLimit { get; set; }
-    public int CurrentEmployeeCount { get; private set; }
+    public int CurrentEmployeeCount { get; set; }
     public int CompanyId { get; set; }
     public string CompanyName { get; set; }
     private static int _count { get; set; }
@@ -22,6 +23,16 @@ public class Department : IEntity
         this.EmployeeLimit = employeelimit;
         this.CompanyName = companyname;
         this.CompanyId = companyid;
+        this.CurrentEmployeeCount = 0;
+    }
+    public void AddEmployee(Employee employee)
+    {
+        if (CurrentEmployeeCount >= EmployeeLimit)
+        {
+            throw new CapacityLimitException("Department capacity limit reached.");
+        }
+        CurrentEmployeeCount++;
+        employee.DepartmentId = this.Id;
     }
     public override string ToString()
     {
@@ -29,3 +40,10 @@ public class Department : IEntity
     }
 }
 
+public class CapacityLimitException : Exception
+{
+
+    public CapacityLimitException(string? message) : base(message)
+    {
+    }
+}

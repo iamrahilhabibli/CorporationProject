@@ -6,7 +6,9 @@ using Corporation.Infrastructure.Utilities.Exceptions;
 
 CompanyServices newCompany = new CompanyServices();
 DepartmentServices newDepartment = new DepartmentServices();
+Department new_department = new Department();
 EmployeeServices newEmployee = new EmployeeServices();
+Employee new_employee = new Employee();
 
 while (true)
 {
@@ -99,7 +101,7 @@ while (true)
                 }
                 try { newDepartment.Create(departmentName, employeeLimit, departmentCompanyId, company_name); }
                 catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); goto company_Id; }
-                catch (Exception ex) { Console.WriteLine("An error occurred: " + ex.Message); }
+                catch (Exception ex) { Console.WriteLine(ex.Message); }
                 break;
 
             case (int)Helper.ConsoleMenu.GetListOfDepartmentsByID:
@@ -197,8 +199,8 @@ while (true)
                     Console.WriteLine("Employee Successfully added!");
                 }
                 catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); goto employee_company; }
+                catch (Corporation.Core.Entities.CapacityLimitException ex) { Console.WriteLine(ex.Message); }
                 break;
-
 
             case (int)Helper.ConsoleMenu.GetListOfAllEmployees:
                 newEmployee.GetAll();

@@ -10,6 +10,7 @@ public class EmployeeServices
 {
     public static int indexCounter = 0;
 
+
     public void Create(string name, string surname, double salary, string companyname, int departmentid)
     {
         bool companyExists = false;
@@ -34,8 +35,21 @@ public class EmployeeServices
         }
         if (!depExists) { throw new NonExistentEntityException("Department with given ID does not exist"); }
 
+        Department department = null;
+        foreach (var departments in AppDbContextSim.departments)
+        {
+            if (departments != null && departments.Id == departmentid)
+            {
+                department = departments;
+                break;
+            }
+        }
+        if (department == null) { throw new NonExistentEntityException("Department with given ID does not exist"); }
+        if (department.CurrentEmployeeCount >= department.EmployeeLimit) { throw new Utilities.Exceptions.CapacityLimitException("The department has reached the maximum number of employees."); }
+
         Employee newEmployee = new Employee(name, surname, salary, companyname, departmentid);
         AppDbContextSim.employees[indexCounter++] = newEmployee;
+        department.AddEmployee(newEmployee); // add employee to department
     }
     public void GetAll() // SHOW DEPARTMENT NAME 
     {

@@ -62,27 +62,6 @@ public class DepartmentServices
             }
         }
     }
-    //public void AddEmployee(Employee employee, int departmentid)
-    //{
-    //    int employeeCounter = 0;
-
-    //    for (int i = 0; i < AppDbContextSim.employees.Length; i++)
-    //    {
-    //        if (AppDbContextSim.employees[i].DepartmentId == departmentid)
-    //        {
-    //            employeeCounter++;
-    //        }
-    //    }
-    //    if (employeeCounter >= department.EmployeeLimit)
-    //    {
-    //        throw new CapacityLimitException("Department capacity limit exceeded.");
-    //    }
-    //    else
-    //    {
-    //        employee.DepartmentId = departmentid;
-    //       
-    //    }
-    //}
 }
 
 

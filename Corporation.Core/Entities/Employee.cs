@@ -16,6 +16,12 @@ public class Employee : IEntity
     {
         Id = _count++;
     }
+    public Employee(string name, string surname, double salary) : this()
+    {
+        this.Name = name;
+        this.Surname = surname;
+        this.Salary = salary;
+    }
     public Employee(string name, string surname, double salary, string companyname, int departmentid) : this()
     {
         this.Name = name;
