@@ -17,10 +17,10 @@ while (true)
         "4 - Get list of Departments by Company ID \n" +
         "5 - Get list of Departments by Company Name \n" +
         "6 - Update Department \n" +
-        "7 - Add Employee to Companies Department \n" +
+        "7 - Add Employee \n" +
         "8 - Get List of All Employees \n" +
         "9 - Get List of Employees by Department Id \n" +
-        "10 - Get List of Employees By Department Name");
+        "10 - Search Employee by Name");
 
     int menuItems;
     string? userRes = Console.ReadLine();
@@ -97,7 +97,9 @@ while (true)
                     Console.WriteLine("This section may not be left blank and/or Company name may not consist of only integers");
                     goto company_Name;
                 }
-                newDepartment.Create(departmentName, employeeLimit, departmentCompanyId, company_name);
+                try { newDepartment.Create(departmentName, employeeLimit, departmentCompanyId, company_name); }
+                catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); goto company_Id; }
+                catch (Exception ex) { Console.WriteLine("An error occurred: " + ex.Message); }
                 break;
 
             case (int)Helper.ConsoleMenu.GetListOfDepartmentsByID:
@@ -114,19 +116,15 @@ while (true)
                 newCompany.GetAllDepartmentsByID(listById);
                 break;
 
-            case (int)Helper.ConsoleMenu.GetListOfDepartmentsByName:
+            case (int)Helper.ConsoleMenu.GetListOfDepartmentsByName: // NOT FINISHED
             lisiting_departments_byName:
                 Console.WriteLine("Enter the name of your Company");
                 newCompany.GetAll();
                 string listByNameResponse = Console.ReadLine();
                 newCompany.GetAllDepartmentsByName(listByNameResponse);
                 break;
-            default:
-                Console.WriteLine("Please select a valid option from the provided menu.");
-                break;
 
             case (int)Helper.ConsoleMenu.UpdateDepartment: // NOT FINISHED
-
             company_response:
                 Console.WriteLine("Please input the name of your Company to modify department parameters");
                 string companyResponse = Console.ReadLine();
@@ -149,7 +147,7 @@ while (true)
                 newDepartment.Update(updateByName, newDepName, newEmpLimit);
                 break;
 
-            case (int)Helper.ConsoleMenu.AddEmployeeToCompanyAndDepartment:
+            case (int)Helper.ConsoleMenu.AddEmployee:
             name_response:
                 Console.WriteLine("Enter employee name: ");
                 string nameResponse = Console.ReadLine();
@@ -170,7 +168,7 @@ while (true)
                 Console.WriteLine("Enter employee Salary");
                 double doubleSalaryResponse;
                 string salaryResponse = Console.ReadLine();
-                if (!double.TryParse(salaryResponse, out doubleSalaryResponse))
+                if (!double.TryParse(salaryResponse, out doubleSalaryResponse) || doubleSalaryResponse < 0)
                 {
                     Console.WriteLine("Incorrect format for Salary"); // show the correct format
                     goto salary_response;
@@ -193,16 +191,20 @@ while (true)
                 {
                     Console.WriteLine("You must enter unique ID of the department from the list");
                 }
-                newEmployee.Create(nameResponse, surnameResponse, doubleSalaryResponse, companyNameResponse, departmentIdResponse);
-
-                Console.WriteLine("Employee Successfully added!");
+                try
+                {
+                    newEmployee.Create(nameResponse, surnameResponse, doubleSalaryResponse, companyNameResponse, departmentIdResponse);
+                    Console.WriteLine("Employee Successfully added!");
+                }
+                catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); goto employee_company; }
                 break;
+
 
             case (int)Helper.ConsoleMenu.GetListOfAllEmployees:
                 newEmployee.GetAll();
                 break;
 
-            case (int)Helper.ConsoleMenu.GetListOfEmployeesByDepID:
+            case (int)Helper.ConsoleMenu.GetListOfEmployeesByDepID: // need to check
                 Console.WriteLine("Enter Company ID: ");
                 newCompany.GetAll();
                 int companyIdResponse;
@@ -219,15 +221,11 @@ while (true)
                 {
                     Console.WriteLine("Choose valid Department ID");
                 }
+
                 newEmployee.GetAllByDepartmentId(department_id_response);
                 break;
 
-            case (int)Helper.ConsoleMenu.GetListOfEmployeesByDepName:
-                Console.WriteLine("Enter your Company name: ");
-                newCompany.GetAll();
-
-                Console.ReadLine();
-                break;
+                // ADD SEARCH EMPLOYEE BY NAME
         }
     }
     else

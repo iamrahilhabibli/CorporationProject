@@ -1,7 +1,7 @@
 ﻿namespace Corporation.Infrastructure.Utilities.Exceptions;
 
-public class NegativeLimitException : Exception
+public class NegativeValueException : Exception
 {
-    public NegativeLimitException(string message) : base(message) { }
+    public NegativeValueException(string message) : base(message) { }
 }
 

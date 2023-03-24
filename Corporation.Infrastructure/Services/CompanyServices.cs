@@ -50,10 +50,7 @@ public class CompanyServices
     {
         for (int i = 0; i < AppDbContextSim.departments.Length; i++)
         {
-            if (AppDbContextSim.departments[i] is null)
-            {
-                break;
-            }
+            if (AppDbContextSim.departments[i] is null) { break; }
             else if (AppDbContextSim.departments[i].CompanyId == id)
             {
                 Console.WriteLine($"Department ID: {AppDbContextSim.departments[i].Id}\n" +
@@ -66,10 +63,7 @@ public class CompanyServices
     {
         for (int i = 0; i < AppDbContextSim.departments.Length; i++)
         {
-            if (AppDbContextSim.departments[i] is null)
-            {
-                break;
-            }
+            if (AppDbContextSim.departments[i] is null) { break; }
             else if (AppDbContextSim.departments[i].CompanyName.ToUpper() == name.ToUpper())
             {
                 Console.WriteLine($"\nDepartment ID: {AppDbContextSim.departments[i].Id}\n" +

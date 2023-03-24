@@ -7,6 +7,7 @@ public class Department : IEntity
     public int Id { get; set; }
     public string Name { get; set; }
     public int EmployeeLimit { get; set; }
+    public int CurrentEmployeeCount { get; private set; }
     public int CompanyId { get; set; }
     public string CompanyName { get; set; }
     private static int _count { get; set; }
@@ -21,6 +22,10 @@ public class Department : IEntity
         this.EmployeeLimit = employeelimit;
         this.CompanyName = companyname;
         this.CompanyId = companyid;
+    }
+    public override string ToString()
+    {
+        return $"Department Id: {Id}, Name: {Name}";
     }
 }
 

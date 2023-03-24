@@ -52,10 +52,7 @@ public class EmployeeServices
     {
         for (int i = 0; i < AppDbContextSim.employees.Length; i++)
         {
-            if (AppDbContextSim.employees[i] is null)
-            {
-                break;
-            }
+            if (AppDbContextSim.employees[i] is null) { break; }
             else if (AppDbContextSim.employees[i].DepartmentId == id)
             {
                 Console.WriteLine($"Employees ID: {AppDbContextSim.employees[i].Id}\n" +
@@ -64,9 +61,5 @@ public class EmployeeServices
             }
         }
     }
-    //public void GetAllByDepartmentName(string name)
-    //{
-
-    //}
 }
 
