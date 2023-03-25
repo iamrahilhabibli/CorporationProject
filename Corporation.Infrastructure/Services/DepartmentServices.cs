@@ -10,16 +10,6 @@ public class DepartmentServices
 
     public void Create(string departmentName, int employeelimit, int companyid, string companyname)
     {
-        // Possibly will delete this: 
-
-        if (String.IsNullOrWhiteSpace(departmentName))
-        {
-            throw new NullOrEmptyException("The company name must contain at least one character and cannot be left empty");
-        }
-        else if (departmentName.All(char.IsDigit) || System.Text.RegularExpressions.Regex.IsMatch(departmentName, "[^a-zA-Z0-9 &-]"))
-        {
-            throw new NonDigitException("A company name must include at least one non-digit character and can not consist of only digits and/or contain symbols.");
-        }
         bool depExists = false;
 
         for (int i = 0; i < indexCounter; i++)
@@ -41,11 +31,11 @@ public class DepartmentServices
             if (companies != null && companies.Id == companyid && companies.Name.ToUpper() == companyname.ToUpper())
             {
                 companyExists = true;
-                Console.WriteLine($"Department Successfully added!");
+                Console.WriteLine($"Department: \"{departmentName}\" is successfully added!");
                 break;
             }
         }
-        if (!companyExists) { throw new NonExistentEntityException("Company with given ID and/or name does not exist"); }
+        if (!companyExists) { throw new NonExistentEntityException("Company with given ID and/or name does not exist\n"); }
 
         Department newDepartment = new(departmentName, employeelimit, companyid, companyname);
         AppDbContextSim.departments[indexCounter++] = newDepartment;
@@ -64,6 +54,7 @@ public class DepartmentServices
     }
     public void GetAll()
     {
+        if (AppDbContextSim.departments[0] is null) { throw new NullOrEmptyException("No departments have been created!"); }
         for (int i = 0; i < AppDbContextSim.departments.Length; i++)
         {
             if (AppDbContextSim.departments[i] is null) { break; }

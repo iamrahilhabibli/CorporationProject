@@ -2,6 +2,7 @@
 
 using System;
 using System.ComponentModel.Design;
+using System.Xml.Linq;
 using Corporation.Core.Entities;
 using Corporation.Core.Interface;
 using Corporation.Infrastructure.DbContextSim;
@@ -69,6 +70,20 @@ public class EmployeeServices
                 Console.WriteLine($"Employees ID: {AppDbContextSim.employees[i].Id}\n" +
                     $"Name: {AppDbContextSim.employees[i].Name}\n" +
                     $"Surname: {AppDbContextSim.employees[i].Surname}");
+            }
+        }
+    }
+    public void GetAllByCompanyName(string companyname)
+    {
+        for (int i = 0; i < AppDbContextSim.employees.Length; i++)
+        {
+            if (AppDbContextSim.employees[i] is null) { break; }
+            else if (AppDbContextSim.employees[i].CompanyName.ToUpper() == companyname.ToUpper())
+            {
+                Console.WriteLine($"\nEmployee ID: {AppDbContextSim.employees[i].Id}\n" +
+                    $"Employee Name: {AppDbContextSim.employees[i].Name}\n" +
+                    $"Employee Surname {AppDbContextSim.employees[i].Surname}" +
+                    $"Employee Salary: {AppDbContextSim.employees[i].Salary}");
             }
         }
     }

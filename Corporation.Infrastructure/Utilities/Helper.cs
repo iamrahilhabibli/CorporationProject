@@ -9,12 +9,13 @@ public static class Helper
         GetCompanyList,
         CreateDepartment,
         GetListOfAllDepartments,
-        GetListOfDepartmentsByID,
-        GetListOfDepartmentsByName,
+        GetListOfDepartmentsByCompanyID,
+        GetListOfDepartmentsByCompanyName,
         UpdateDepartment,
         AddEmployee,
         GetListOfAllEmployees,
         GetListOfEmployeesByDepID,
+        GetListOfEmployeesByCompanyName,
         SearchEmployeeByName
     };
 }

@@ -7,7 +7,7 @@ using Corporation.Infrastructure.Utilities.Exceptions;
 
 CompanyServices newCompany = new CompanyServices();
 DepartmentServices newDepartment = new DepartmentServices();
-Department new_department = new Department();
+//Department new_department = new Department();
 EmployeeServices newEmployee = new EmployeeServices();
 Employee new_employee = new Employee();
 
@@ -27,7 +27,8 @@ while (true)
 [8] Add a new employee
 [9] View all employees
 [10] View employees by department ID
-[11] Search for an employee by name");
+[11] View employees by company name
+[12] Search for an employee by name");
 
     int menuItems;
     string? userRes = Console.ReadLine();
@@ -41,7 +42,7 @@ while (true)
                 Environment.Exit(0);
                 break;
 
-            case (int)Helper.ConsoleMenu.CreateCompany:
+            case (int)Helper.ConsoleMenu.CreateCompany: // OK!
                 bool companyCreated = false;
                 while (!companyCreated) // repeat until company is successfully created
                 {
@@ -57,12 +58,12 @@ while (true)
                 }
                 break;
 
-            case (int)Helper.ConsoleMenu.GetCompanyList: // SEEMS OK, FURTHER INSPECTION SHOULD BE DONE
+            case (int)Helper.ConsoleMenu.GetCompanyList: // OK! CHECK THE GET ALL METHOD AGAIN!
                 try { newCompany.GetAll(); }
                 catch (Exception ex) { Console.WriteLine(ex.Message); }
                 break;
 
-            case (int)Helper.ConsoleMenu.CreateDepartment:
+            case (int)Helper.ConsoleMenu.CreateDepartment: // LAST INSPECTION STILL REQUIRED!
             dep_name:
                 Console.WriteLine("Enter Department Name");
                 string departmentName = Console.ReadLine();
@@ -71,7 +72,7 @@ while (true)
                     Console.WriteLine("Department name can not be left blank, contain only integer and/or contain symbols");
                     goto dep_name;
                 }
-            limit_range: // RENAME
+            employee_limit: // RENAME
                 Console.WriteLine("Enter Employee Limit");
                 int employeeLimit;
                 string employeeLimitResponse = Console.ReadLine();
@@ -79,16 +80,18 @@ while (true)
                 if (!employeeInLimitRange)
                 {
                     Console.WriteLine("The limit range can only contain integer");
-                    goto limit_range;
+                    goto employee_limit;
                 }
                 else if (employeeLimit <= 0)
                 {
                     Console.WriteLine("Employee limit can not be set to zero or negative");
-                    goto limit_range;
+                    goto employee_limit;
                 }
             company_Id:
                 Console.WriteLine("Enter Company ID department belongs to: ");
-                newCompany.GetAll();
+                try { newCompany.GetAll(); } // If no companies exist  
+                catch (NullOrEmptyException ex) { Console.WriteLine(ex.Message); break; }
+
                 int departmentCompanyId;
                 string depCompIdResponse = Console.ReadLine();
                 if (!int.TryParse(depCompIdResponse, out departmentCompanyId))
@@ -106,14 +109,14 @@ while (true)
                 }
                 try { newDepartment.Create(departmentName, employeeLimit, departmentCompanyId, company_name); }
                 catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); goto company_Id; }
-                catch (Corporation.Infrastructure.Utilities.Exceptions.CapacityLimitException ex) { Console.WriteLine(ex.Message); }
                 break;
 
-            case (int)Helper.ConsoleMenu.GetListOfAllDepartments:
-                newDepartment.GetAll();
+            case (int)Helper.ConsoleMenu.GetListOfAllDepartments: // EXCEPTION MUST BE THROWN IF NO DEPARTMENTS EXIST
+                try { newDepartment.GetAll(); }
+                catch (NullOrEmptyException ex) { Console.WriteLine(ex.Message); }
                 break;
 
-            case (int)Helper.ConsoleMenu.GetListOfDepartmentsByID:
+            case (int)Helper.ConsoleMenu.GetListOfDepartmentsByCompanyID: // LOOKS OK! FURTHER INSPECTION REQUIRED!
             listing_departments_byId:
                 Console.WriteLine("Enter the Unique ID of your Company to list all your departments");
                 newCompany.GetAll();
@@ -127,15 +130,20 @@ while (true)
                 newCompany.GetAllDepartmentsByID(listById);
                 break;
 
-            case (int)Helper.ConsoleMenu.GetListOfDepartmentsByName: // NOT FINISHED
+            case (int)Helper.ConsoleMenu.GetListOfDepartmentsByCompanyName: // LOOKS OK! FURTHER INSPECTION REQUIRED!
             lisiting_departments_byName:
                 Console.WriteLine("Enter the name of your Company");
-                newCompany.GetAll();
-                string listByNameResponse = Console.ReadLine();
-                newCompany.GetAllDepartmentsByName(listByNameResponse);
+                try
+                {
+                    newCompany.GetAll();
+                    string listByNameResponse = Console.ReadLine();
+                    newCompany.GetAllDepartmentsByName(listByNameResponse);
+                }
+                catch (NullOrEmptyException ex) { Console.WriteLine(ex.Message); }
+                catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); goto lisiting_departments_byName; }
                 break;
 
-            case (int)Helper.ConsoleMenu.UpdateDepartment: // NOT FINISHED
+            case (int)Helper.ConsoleMenu.UpdateDepartment: // NOT FINISHED INPUT VALIDATION MUST BE CHECKED
             company_response:
                 Console.WriteLine("Please input the name of your Company to modify department parameters");
                 string companyResponse = Console.ReadLine();
@@ -213,10 +221,9 @@ while (true)
 
             case (int)Helper.ConsoleMenu.GetListOfAllEmployees:
                 newEmployee.GetAll();
-
                 break;
 
-            case (int)Helper.ConsoleMenu.GetListOfEmployeesByDepID: // need to check
+            case (int)Helper.ConsoleMenu.GetListOfEmployeesByDepID: // needs to throw exception No employees have been added to dep
                 Console.WriteLine("Enter Company ID: ");
                 newCompany.GetAll();
                 int companyIdResponse;
@@ -235,6 +242,13 @@ while (true)
                 }
 
                 newEmployee.GetAllByDepartmentId(department_id_response);
+                break;
+
+            case (int)Helper.ConsoleMenu.GetListOfEmployeesByCompanyName:
+                Console.WriteLine("Enter your Company name");
+                newCompany.GetAll();
+                string employeeCompanyNameResponse = Console.ReadLine();
+                newEmployee.GetAllByCompanyName(employeeCompanyNameResponse);
                 break;
 
             case (int)Helper.ConsoleMenu.SearchEmployeeByName: // PUT THIS IN TRY CATCH AND ADD EXCEPTIONS

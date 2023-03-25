@@ -37,7 +37,7 @@ public class CompanyServices
     }
     public void GetAll()
     {
-        if (AppDbContextSim.companies[0] is null) { throw new NullOrEmptyException("A company has not been created!"); }
+        if (AppDbContextSim.companies[0] is null) { throw new NullOrEmptyException("No companies have been created yet!"); }
         foreach (Company company in AppDbContextSim.companies)
         {
             if (company is null) break;
@@ -52,9 +52,7 @@ public class CompanyServices
             if (AppDbContextSim.departments[i] is null) { break; }
             else if (AppDbContextSim.departments[i].CompanyId == id)
             {
-                Console.WriteLine($"Department ID: {AppDbContextSim.departments[i].Id}\n" +
-                    $"Department Name: {AppDbContextSim.departments[i].Name}\n" +
-                    $"Employee Limit: {AppDbContextSim.departments[i].EmployeeLimit}");
+                Console.WriteLine(AppDbContextSim.departments[i].ToString());
             }
         }
     }
@@ -65,10 +63,9 @@ public class CompanyServices
             if (AppDbContextSim.departments[i] is null) { break; }
             else if (AppDbContextSim.departments[i].CompanyName.ToUpper() == name.ToUpper())
             {
-                Console.WriteLine($"\nDepartment ID: {AppDbContextSim.departments[i].Id}\n" +
-                    $"Department Name: {AppDbContextSim.departments[i].Name}\n" +
-                    $"Employee Limit {AppDbContextSim.departments[i].EmployeeLimit}");
+                Console.WriteLine(AppDbContextSim.departments[i].ToString());
             }
+            throw new NonExistentEntityException("Company with given name does not exist!");
         }
     }
 }
