@@ -1,5 +1,6 @@
 ﻿namespace Corporation.Infrastructure.Services;
 
+using System;
 using System.ComponentModel.Design;
 using Corporation.Core.Entities;
 using Corporation.Core.Interface;
@@ -70,6 +71,27 @@ public class EmployeeServices
                     $"Surname: {AppDbContextSim.employees[i].Surname}");
             }
         }
+    }
+    public void GetByName(string employeeNameOrSurname)
+    {
+        if (String.IsNullOrEmpty(employeeNameOrSurname) || employeeNameOrSurname.All(char.IsDigit) || System.Text.RegularExpressions.Regex.IsMatch(employeeNameOrSurname, "[^a-zA-Z0-9 -]"))
+        { throw new InvalidNameInput("The search section can not be left empty and/or contain digits or include symbols"); }
+        bool nameExists = false;
+        string employeeFullname = String.Empty;
+        for (int i = 0; i < indexCounter; i++)
+        {
+            employeeFullname = AppDbContextSim.employees[i].Name + "" + AppDbContextSim.employees[i].Surname;
+
+            if (employeeFullname.ToUpper().Contains(employeeNameOrSurname.ToUpper()))
+            {
+                nameExists = true;
+                Console.WriteLine($"Employee Name: {AppDbContextSim.employees[i].Name}\n" +
+                    $"Employee Surname: {AppDbContextSim.employees[i].Surname}\n" +
+                    $"Department ID: {AppDbContextSim.employees[i].DepartmentId}\n" +
+                    $"Company Name: {AppDbContextSim.employees[i].CompanyName}");
+            }
+        }
+        if (!nameExists) { throw new NotFound("Employee not found!"); }
     }
 }
 

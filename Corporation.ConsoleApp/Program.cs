@@ -237,7 +237,16 @@ while (true)
                 newEmployee.GetAllByDepartmentId(department_id_response);
                 break;
 
-                // ADD SEARCH EMPLOYEE BY NAME
+            case (int)Helper.ConsoleMenu.SearchEmployeeByName: // PUT THIS IN TRY CATCH AND ADD EXCEPTIONS
+            search_employee_name:
+                try
+                {
+                    Console.WriteLine("Please enter the name or surname of the employee you are looking for.");
+                    string searchResponse = Console.ReadLine();
+                    newEmployee.GetByName(searchResponse);
+                }
+                catch (InvalidNameInput ex) { Console.WriteLine(ex.Message); goto search_employee_name; }
+                break;
         }
     }
     else

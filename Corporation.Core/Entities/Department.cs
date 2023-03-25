@@ -27,23 +27,15 @@ public class Department : IEntity
     }
     public void AddEmployee(Employee employee)
     {
-        if (CurrentEmployeeCount >= EmployeeLimit)
-        {
-            throw new CapacityLimitException("Department capacity limit reached.");
-        }
+        if (CurrentEmployeeCount >= EmployeeLimit) { throw new CapacityLimitException("Department capacity limit reached."); }
         CurrentEmployeeCount++;
         employee.DepartmentId = this.Id;
     }
-    public override string ToString()
-    {
-        return $"Department Id: {Id} | Department name: {Name} | Employee Limit: {EmployeeLimit} | Current Employee Count: {CurrentEmployeeCount} ";
-    }
+    public override string ToString() { return $"Department Id: {Id} | Department name: {Name} | Employee Limit: {EmployeeLimit} | Current Employee Count: {CurrentEmployeeCount} "; }
 }
 
 public class CapacityLimitException : Exception
 {
 
-    public CapacityLimitException(string? message) : base(message)
-    {
-    }
+    public CapacityLimitException(string? message) : base(message) { }
 }
