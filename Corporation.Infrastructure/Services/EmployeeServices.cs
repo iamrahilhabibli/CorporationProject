@@ -10,7 +10,6 @@ public class EmployeeServices
 {
     public static int indexCounter = 0;
 
-
     public void Create(string name, string surname, double salary, string companyname, int departmentid)
     {
         bool companyExists = false;
@@ -51,15 +50,12 @@ public class EmployeeServices
         AppDbContextSim.employees[indexCounter++] = newEmployee;
         department.AddEmployee(newEmployee); // add employee to department
     }
-    public void GetAll() // SHOW DEPARTMENT NAME 
+    public void GetAll()
     {
-        for (int i = 0; i < indexCounter; i++)
+        for (int i = 0; i < AppDbContextSim.employees.Length; i++)
         {
-            Console.WriteLine($"Employee ID: {AppDbContextSim.employees[i].Id}\n" +
-                $"Name: {AppDbContextSim.employees[i].Name} \n" +
-                $"Surname: {AppDbContextSim.employees[i].Surname}\n" +
-                $"Company: {AppDbContextSim.employees[i].CompanyName}\n" +
-                $"Department: {AppDbContextSim.employees[i].DepartmentId}\n");
+            if (AppDbContextSim.employees[i] is null) { break; }
+            else { Console.WriteLine(AppDbContextSim.employees[i].ToString()); }
         }
     }
     public void GetAllByDepartmentId(int id)

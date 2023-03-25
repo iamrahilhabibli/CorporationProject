@@ -62,6 +62,14 @@ public class DepartmentServices
             }
         }
     }
+    public void GetAll()
+    {
+        for (int i = 0; i < AppDbContextSim.departments.Length; i++)
+        {
+            if (AppDbContextSim.departments[i] is null) { break; }
+            else { Console.WriteLine(AppDbContextSim.departments[i].ToString()); }
+        }
+    }
 }
 
 

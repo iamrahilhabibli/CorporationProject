@@ -36,7 +36,7 @@ public class Department : IEntity
     }
     public override string ToString()
     {
-        return $"Department Id: {Id}, Name: {Name}";
+        return $"Department Id: {Id} | Department name: {Name} | Employee Limit: {EmployeeLimit} | Current Employee Count: {CurrentEmployeeCount} ";
     }
 }
 

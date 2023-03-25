@@ -8,6 +8,7 @@ public static class Helper
         CreateCompany,
         GetCompanyList,
         CreateDepartment,
+        GetListOfAllDepartments,
         GetListOfDepartmentsByID,
         GetListOfDepartmentsByName,
         UpdateDepartment,

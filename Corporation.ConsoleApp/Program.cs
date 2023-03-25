@@ -13,18 +13,22 @@ Employee new_employee = new Employee();
 
 while (true)
 {
-    Console.WriteLine("COMPANY MANAGEMENT\n\nPlease select an option:\n-------------------------\n" +
-        "0. Exit\n" +
-        "1. Create a new company\n" +
-        "2. Get a list of all companies\n" +
-        "3. Create a new department\n" +
-        "4. Get a list of departments by company ID\n" +
-        "5. Get a list of departments by company name\n" +
-        "6. Update a department\n" +
-        "7. Add a new employee\n" +
-        "8. Get a list of all employees\n" +
-        "9. Get a list of employees by department ID\n" +
-        "10. Search for an employee by name\n");
+    Console.WriteLine("Please select an option");
+    Console.WriteLine();
+    Console.WriteLine(@"
+[0] Exit
+[1] Create a new company
+[2] View all companies
+[3] Create a new department
+[4] View all departments
+[5] View departments by company ID
+[6] View departments by company name
+[7] Update a department
+[8] Add a new employee
+[9] View all employees
+[10] View employees by department ID
+[11] Search for an employee by name");
+
     int menuItems;
     string? userRes = Console.ReadLine();
     bool response = int.TryParse(userRes, out menuItems);
@@ -105,7 +109,9 @@ while (true)
                 catch (Corporation.Infrastructure.Utilities.Exceptions.CapacityLimitException ex) { Console.WriteLine(ex.Message); }
                 break;
 
-
+            case (int)Helper.ConsoleMenu.GetListOfAllDepartments:
+                newDepartment.GetAll();
+                break;
 
             case (int)Helper.ConsoleMenu.GetListOfDepartmentsByID:
             listing_departments_byId:
@@ -207,6 +213,7 @@ while (true)
 
             case (int)Helper.ConsoleMenu.GetListOfAllEmployees:
                 newEmployee.GetAll();
+
                 break;
 
             case (int)Helper.ConsoleMenu.GetListOfEmployeesByDepID: // need to check

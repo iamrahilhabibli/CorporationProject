@@ -32,7 +32,7 @@ public class Employee : IEntity
     }
     public override string ToString()
     {
-        return $"Employee Id: {Id}, Name: {Name}, Surname: {Surname}";
+        return $"Employee Id: {Id} | Name: {Name} | Surname: {Surname} | Salary:{Salary} | Company Name: {CompanyName} | DepartmentId: {DepartmentId}";
     }
 }
 
