@@ -250,7 +250,14 @@ while (true)
                 break;
 
             case (int)Helper.ConsoleMenu.GetListOfAllEmployees:
-                newEmployee.GetAll();
+                try
+                {
+                    newEmployee.GetAll();
+                }
+                catch (NullOrEmptyException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
                 break;
 
             case (int)Helper.ConsoleMenu.GetListOfEmployeesByDepID: // needs to throw exception No employees have been added to dep

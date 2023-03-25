@@ -54,7 +54,8 @@ public class EmployeeServices
     }
     public void GetAll()
     {
-        for (int i = 0; i < AppDbContextSim.employees.Length; i++)
+        if (AppDbContextSim.employees[0] is null) { throw new NullOrEmptyException("No employees have been created!"); }
+        for (int i = 0; i < indexCounter; i++)
         {
             if (AppDbContextSim.employees[i] is null) { break; }
             else { Console.WriteLine(AppDbContextSim.employees[i].ToString()); }
@@ -67,9 +68,7 @@ public class EmployeeServices
             if (AppDbContextSim.employees[i] is null) { break; }
             else if (AppDbContextSim.employees[i].DepartmentId == id)
             {
-                Console.WriteLine($"Employees ID: {AppDbContextSim.employees[i].Id}\n" +
-                    $"Name: {AppDbContextSim.employees[i].Name}\n" +
-                    $"Surname: {AppDbContextSim.employees[i].Surname}");
+                Console.WriteLine($"{AppDbContextSim.employees[i].ToString()}");
             }
         }
     }
@@ -80,10 +79,7 @@ public class EmployeeServices
             if (AppDbContextSim.employees[i] is null) { break; }
             else if (AppDbContextSim.employees[i].CompanyName.ToUpper() == companyname.ToUpper())
             {
-                Console.WriteLine($"\nEmployee ID: {AppDbContextSim.employees[i].Id}\n" +
-                    $"Employee Name: {AppDbContextSim.employees[i].Name}\n" +
-                    $"Employee Surname {AppDbContextSim.employees[i].Surname}" +
-                    $"Employee Salary: {AppDbContextSim.employees[i].Salary}");
+                Console.WriteLine($"{AppDbContextSim.employees[i].ToString()}");
             }
         }
     }
