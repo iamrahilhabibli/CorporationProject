@@ -64,8 +64,9 @@ public class CompanyServices
             else if (AppDbContextSim.departments[i].CompanyName.ToUpper() == name.ToUpper())
             {
                 Console.WriteLine(AppDbContextSim.departments[i].ToString());
+                break;
             }
-            throw new NonExistentEntityException("Company with given name does not exist!");
+            else { throw new NonExistentEntityException("Company with given name does not exist!"); }
         }
     }
 }

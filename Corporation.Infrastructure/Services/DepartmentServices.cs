@@ -42,15 +42,28 @@ public class DepartmentServices
     }
     public void Update(int departmentId, string newDepartmentName, int newEmployeeLimit)
     {
-        for (int i = 0; i < AppDbContextSim.departments.Length; i++)
         {
-            if (i == departmentId)
+            bool departmentFound = false;
+            for (int i = 0; i < indexCounter; i++)
             {
-                AppDbContextSim.departments[i].Name = newDepartmentName;
-                AppDbContextSim.departments[i].EmployeeLimit = newEmployeeLimit;
-                break;
+                if (i == departmentId)
+                {
+                    if (AppDbContextSim.departments[i].Name.ToUpper() == newDepartmentName.ToUpper() && AppDbContextSim.departments[i].EmployeeLimit == newEmployeeLimit)
+                    {
+                        throw new IdenticalNameException("The new values for department is exactly same as old values.");
+                    }
+                    AppDbContextSim.departments[i].Name = newDepartmentName;
+                    AppDbContextSim.departments[i].EmployeeLimit = newEmployeeLimit;
+                    departmentFound = true;
+                    break;
+                }
+            }
+            if (!departmentFound)
+            {
+                throw new NonExistentEntityException("Department with given ID does not exist");
             }
         }
+
     }
     public void GetAll()
     {

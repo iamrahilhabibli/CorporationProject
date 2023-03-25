@@ -145,13 +145,20 @@ while (true)
 
             case (int)Helper.ConsoleMenu.UpdateDepartment: // NOT FINISHED INPUT VALIDATION MUST BE CHECKED
             company_response:
-                Console.WriteLine("Please input the name of your Company to modify department parameters");
-                string companyResponse = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(companyResponse) || companyResponse.All(char.IsDigit))
+                try
                 {
-                    Console.WriteLine("Please enter a");
+                    newCompany.GetAll();
+                    Console.WriteLine("Please input the name of your Company to modify department parameters");
+                    string companyResponse = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(companyResponse) || companyResponse.All(char.IsDigit))
+                    {
+                        Console.WriteLine("Please enter company name in a valid format");
+                    }
+                    newCompany.GetAllDepartmentsByName(companyResponse);
                 }
-                newCompany.GetAllDepartmentsByName(companyResponse);
+                catch (NullOrEmptyException ex) { Console.WriteLine(ex.Message); break; }
+                catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); goto company_response; }
+            update_department_id:
                 Console.WriteLine("Enter Department ID you wish to modify");
                 int updateByName;
                 string updateResponse = Console.ReadLine();
@@ -159,12 +166,35 @@ while (true)
                 {
                     Console.WriteLine("Enter correct format");
                 }
+
+            new_department_name:
                 Console.WriteLine("Enter new Name for your Department");
                 string newDepName = Console.ReadLine();
-                Console.WriteLine("Enter new emp limit");
-                int newEmpLimit = int.Parse(Console.ReadLine());
-                newDepartment.Update(updateByName, newDepName, newEmpLimit);
+                if (string.IsNullOrWhiteSpace(newDepName) || newDepName.All(char.IsDigit) || System.Text.RegularExpressions.Regex.IsMatch(newDepName, "[^a-zA-Z0-9 -]"))
+                {
+                    Console.WriteLine("Department name can not be left blank, contain only integer and/or contain symbols");
+                    goto new_department_name;
+                }
+            new_employee_limit:
+                Console.WriteLine("Enter new employee limit");
+                int newEmpLimit;
+                string newEmpLimitResponse = Console.ReadLine();
+                bool isEmpLimitValid = int.TryParse(newEmpLimitResponse, out newEmpLimit);
+                if (!isEmpLimitValid)
+                {
+                    Console.WriteLine("Employee limit can only contain integers");
+                    goto new_employee_limit;
+                }
+                else if (newEmpLimit <= 0)
+                {
+                    Console.WriteLine("Employee limit can not be set to zero or negative");
+                    goto new_employee_limit;
+                }
+                try { newDepartment.Update(updateByName, newDepName, newEmpLimit); Console.WriteLine("Department successfully updated!"); }
+                catch (IdenticalNameException ex) { Console.WriteLine(ex.Message); goto new_department_name; }
+                catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); goto update_department_id; }
                 break;
+
 
             case (int)Helper.ConsoleMenu.AddEmployee:
             name_response:
@@ -216,7 +246,7 @@ while (true)
                     Console.WriteLine("Employee Successfully added!");
                 }
                 catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); goto employee_company; }
-                catch (Corporation.Core.Entities.CapacityLimitException ex) { Console.WriteLine(ex.Message); }
+                catch (Corporation.Infrastructure.Utilities.Exceptions.CapacityLimitException ex) { Console.WriteLine(ex.Message); break; }
                 break;
 
             case (int)Helper.ConsoleMenu.GetListOfAllEmployees:
