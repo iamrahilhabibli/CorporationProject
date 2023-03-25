@@ -104,7 +104,7 @@ while (true)
                 catch (NullOrEmptyException ex) { Console.WriteLine(ex.Message); }
                 break;
 
-            case (int)Helper.ConsoleMenu.GetListOfDepartmentsByCompanyID: // LOOKS OK! FURTHER INSPECTION REQUIRED!
+            case (int)Helper.ConsoleMenu.GetListOfDepartmentsByCompanyID: // OK!
             listing_departments_byId:
                 Console.WriteLine("Enter the Unique ID of your Company to list all your departments");
                 try { newCompany.GetAll(); }
@@ -119,47 +119,35 @@ while (true)
                 newCompany.GetAllDepartmentsByID(listById);
                 break;
 
-            case (int)Helper.ConsoleMenu.GetListOfDepartmentsByCompanyName: // LOOKS OK! FURTHER INSPECTION REQUIRED!
-            lisiting_departments_byName:
-                Console.WriteLine("Enter the name of your Company");
-                try
-                {
-                    newCompany.GetAll();
-                    string listByNameResponse = Console.ReadLine();
-                    newCompany.GetAllDepartmentsByName(listByNameResponse);
-                }
-                catch (NullOrEmptyException ex) { Console.WriteLine(ex.Message); }
-                catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); goto lisiting_departments_byName; }
+            case (int)Helper.ConsoleMenu.GetListOfDepartmentsByCompanyName: // ok!
+            listing_departments_byName:
+                try { newCompany.GetAll(); Console.WriteLine("Enter the name of your Company"); }
+                catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); }
+                try { string listByNameResponse = Console.ReadLine(); newCompany.GetAllDepartmentsByName(listByNameResponse); }
+                catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); }
                 break;
 
             case (int)Helper.ConsoleMenu.UpdateDepartment: // NOT FINISHED INPUT VALIDATION MUST BE CHECKED
             company_response:
-                try
-                {
-                    newCompany.GetAll();
-                    Console.WriteLine("Please input the name of your Company to modify department parameters");
-                    string companyResponse = Console.ReadLine();
-                    if (string.IsNullOrWhiteSpace(companyResponse) || companyResponse.All(char.IsDigit))
-                    {
-                        Console.WriteLine("Please enter company name in a valid format");
-                    }
-                    newCompany.GetAllDepartmentsByName(companyResponse);
-                }
-                catch (NullOrEmptyException ex) { Console.WriteLine(ex.Message); break; }
-                catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); goto company_response; }
+                try { newCompany.GetAll(); }
+                catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); break; }
+                Console.WriteLine("Please input the name of your Company to modify department parameters");
+                string companyResponse = Console.ReadLine();
+                try { newCompany.GetAllDepartmentsByName(companyResponse); }
+                catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); break; }
             update_department_id:
                 Console.WriteLine("Enter Department ID you wish to modify");
                 int updateByName;
                 string updateResponse = Console.ReadLine();
-                if (!int.TryParse(updateResponse, out updateByName))
+                if (!Helper.IntTypeValidation(updateResponse, out updateByName))
                 {
-                    Console.WriteLine("Enter correct format");
+                    Console.WriteLine("Incorrect format for department Unique ID");
+                    goto update_department_id;
                 }
-
             new_department_name:
-                Console.WriteLine("Enter new Name for your Department");
+                Console.WriteLine("Enter new name for your Department");
                 string newDepName = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(newDepName) || newDepName.All(char.IsDigit) || System.Text.RegularExpressions.Regex.IsMatch(newDepName, "[^a-zA-Z0-9 -]"))
+                if (!Helper.NameValidation(newDepName))
                 {
                     Console.WriteLine("Department name can not be left blank, contain only integer and/or contain symbols");
                     goto new_department_name;
@@ -168,24 +156,14 @@ while (true)
                 Console.WriteLine("Enter new employee limit");
                 int newEmpLimit;
                 string newEmpLimitResponse = Console.ReadLine();
-                bool isEmpLimitValid = int.TryParse(newEmpLimitResponse, out newEmpLimit);
-                if (!isEmpLimitValid)
-                {
-                    Console.WriteLine("Employee limit can only contain integers");
-                    goto new_employee_limit;
-                }
-                else if (newEmpLimit <= 0)
-                {
-                    Console.WriteLine("Employee limit can not be set to zero or negative");
-                    goto new_employee_limit;
-                }
+                if (!Helper.EmployeeLimitValidation(newEmpLimitResponse, out newEmpLimit)) { goto new_employee_limit; }
                 try { newDepartment.Update(updateByName, newDepName, newEmpLimit); Console.WriteLine("Department successfully updated!"); }
                 catch (IdenticalNameException ex) { Console.WriteLine(ex.Message); goto new_department_name; }
                 catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); goto update_department_id; }
                 break;
 
 
-            case (int)Helper.ConsoleMenu.AddEmployee:
+            case (int)Helper.ConsoleMenu.AddEmployee: // NEEDS FIXING
             name_response:
                 Console.WriteLine("Enter employee name: ");
                 string nameResponse = Console.ReadLine();
@@ -201,10 +179,12 @@ while (true)
                 if (!Helper.DoubleSalaryValidation(salaryResponse, out doubleSalaryResponse)) { goto salary_response; }
             employee_company:
                 Console.WriteLine("Enter your company name: ");
-                newCompany.GetAll();
+                try { newCompany.GetAll(); }
+                catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); break; }
                 string companyNameResponse = Console.ReadLine();
                 if (!Helper.EntityNameValidation(companyNameResponse)) { Console.WriteLine("Company name field can not be empty,contain symbols that are not allowed or include digits"); goto employee_company; }
-                newCompany.GetAllDepartmentsByName(companyNameResponse);
+                try { newCompany.GetAllDepartmentsByName(companyNameResponse); }
+                catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); break; }
                 Console.WriteLine();
             department_id_input:
                 Console.WriteLine("Enter department ID: ");
@@ -216,7 +196,7 @@ while (true)
                     newEmployee.Create(nameResponse, surnameResponse, doubleSalaryResponse, companyNameResponse, departmentIdResponse);
                     Console.WriteLine("Employee Successfully added!");
                 }
-                catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); goto employee_company; }
+                catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); break; }
                 catch (Corporation.Infrastructure.Utilities.Exceptions.CapacityLimitException ex) { Console.WriteLine(ex.Message); break; }
                 break;
 
@@ -225,13 +205,14 @@ while (true)
                 catch (NullOrEmptyException ex) { Console.WriteLine(ex.Message); }
                 break;
 
-            case (int)Helper.ConsoleMenu.GetListOfEmployeesByDepID: // OK! NEED LAST TEST!
+            case (int)Helper.ConsoleMenu.GetListOfEmployeesByDepID: // OK!
             company_id_user:
                 Console.WriteLine("Enter Company ID: ");
-                newCompany.GetAll();
+                try { newCompany.GetAll(); }
+                catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); break; }
                 int companyIdResponse;
                 string compIdResponse = Console.ReadLine();
-                if (!Helper.IntTypeValidation(compIdResponse, out companyIdResponse)) { Console.WriteLine("Please choose Company ID from the list"); }
+                if (!Helper.IntTypeValidation(compIdResponse, out companyIdResponse)) { Console.WriteLine("Please enter correct format for Company ID"); }
                 try { newCompany.GetAllDepartmentsByID(companyIdResponse); }
                 catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); goto company_id_user; }
             department_id_user:
@@ -243,14 +224,13 @@ while (true)
                 catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); goto department_id_user; }
                 break;
 
-            case (int)Helper.ConsoleMenu.GetListOfEmployeesByCompanyName:
+            case (int)Helper.ConsoleMenu.GetListOfEmployeesByCompanyName: // ok!
                 try
                 {
                     newCompany.GetAll(); Console.WriteLine("Enter your Company name");
                     string employeeCompanyNameResponse = Console.ReadLine();
                     newEmployee.GetAllByCompanyName(employeeCompanyNameResponse);
                 }
-                catch (NullOrEmptyException ex) { Console.WriteLine(ex.Message); break; }
                 catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); break; }
                 break;
 
@@ -263,6 +243,7 @@ while (true)
                     newEmployee.GetByName(searchResponse);
                 }
                 catch (InvalidNameInput ex) { Console.WriteLine(ex.Message); goto search_employee_name; }
+                catch (NotFound ex) { Console.WriteLine(ex.Message); break; }
                 break;
         }
     }

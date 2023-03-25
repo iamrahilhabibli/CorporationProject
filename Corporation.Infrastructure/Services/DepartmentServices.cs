@@ -72,7 +72,7 @@ public class DepartmentServices
     }
     public void GetAll()
     {
-        if (AppDbContextSim.departments[0] is null) { throw new NullOrEmptyException("No departments have been created!"); }
+        if (AppDbContextSim.departments[0] is null) { throw new NonExistentEntityException("No departments have been created!"); }
         for (int i = 0; i < indexCounter; i++)
         {
             if (AppDbContextSim.departments[i] is null) { break; }

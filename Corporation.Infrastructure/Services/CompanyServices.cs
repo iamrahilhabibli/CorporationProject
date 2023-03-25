@@ -64,13 +64,12 @@ public class CompanyServices
     {
         for (int i = 0; i < AppDbContextSim.departments.Length; i++)
         {
-            if (AppDbContextSim.departments[i] is null) { break; }
+            if (AppDbContextSim.departments[i] is null) { throw new NonExistentEntityException("Departments do not exist for this Company!"); }
             else if (AppDbContextSim.departments[i].CompanyName.ToUpper() == name.ToUpper())
             {
                 Console.WriteLine(AppDbContextSim.departments[i].ToString());
                 break;
             }
-            else { throw new NonExistentEntityException("Company with given name does not exist!"); }
         }
     }
 }
