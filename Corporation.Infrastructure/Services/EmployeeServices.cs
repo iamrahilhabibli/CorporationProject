@@ -70,6 +70,7 @@ public class EmployeeServices
             {
                 Console.WriteLine($"{AppDbContextSim.employees[i].ToString()}");
             }
+            else { throw new NonExistentEntityException("Given department does not exist!"); }
         }
     }
     public void GetAllByCompanyName(string companyname)

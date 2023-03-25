@@ -54,6 +54,10 @@ public class CompanyServices
             {
                 Console.WriteLine(AppDbContextSim.departments[i].ToString());
             }
+            else
+            {
+                throw new NonExistentEntityException("Company with given ID does not exist!");
+            }
         }
     }
     public void GetAllDepartmentsByName(string name)

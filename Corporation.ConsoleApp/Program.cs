@@ -200,46 +200,28 @@ while (true)
             name_response:
                 Console.WriteLine("Enter employee name: ");
                 string nameResponse = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(nameResponse) || nameResponse.All(char.IsDigit) || System.Text.RegularExpressions.Regex.IsMatch(nameResponse, "[^a-zA-Z0-9 -]"))
-                {
-                    Console.WriteLine("Name field can not be empty,contain symbols or include digits");
-                    goto name_response;
-                }
+                if (!Helper.NameValidation(nameResponse)) { Console.WriteLine("Name field can not be empty,contain symbols or include digits"); goto name_response; }
             surname_response:
                 Console.WriteLine("Enter employee surname");
                 string surnameResponse = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(surnameResponse) || surnameResponse.All(char.IsDigit) || System.Text.RegularExpressions.Regex.IsMatch(surnameResponse, "[^a-zA-Z0-9 -]"))
-                {
-                    Console.WriteLine("Surname field can not be empty,contain symbols or include digits");
-                    goto surname_response;
-                }
+                if (!Helper.NameValidation(surnameResponse)) { Console.WriteLine("Surname field can not be empty, contain symbols or include digits"); goto surname_response; }
             salary_response:
                 Console.WriteLine("Enter employee Salary");
                 double doubleSalaryResponse;
                 string salaryResponse = Console.ReadLine();
-                if (!double.TryParse(salaryResponse, out doubleSalaryResponse) || doubleSalaryResponse < 0)
-                {
-                    Console.WriteLine("Incorrect format for Salary"); // show the correct format
-                    goto salary_response;
-                }
+                if (!Helper.DoubleSalaryValidation(salaryResponse, out doubleSalaryResponse)) { goto salary_response; }
             employee_company:
                 Console.WriteLine("Enter your company name: ");
                 newCompany.GetAll();
                 string companyNameResponse = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(companyNameResponse) || companyNameResponse.All(char.IsDigit) || System.Text.RegularExpressions.Regex.IsMatch(companyNameResponse, "[^a-zA-Z0-9 &-]"))
-                {
-                    Console.WriteLine("Company name field can not be empty,contain symbols that are not allowed or include digits");
-                    goto employee_company;
-                }
+                if (!Helper.EntityNameValidation(companyNameResponse)) { Console.WriteLine("Company name field can not be empty,contain symbols that are not allowed or include digits"); goto employee_company; }
                 newCompany.GetAllDepartmentsByName(companyNameResponse);
                 Console.WriteLine();
+            department_id_input:
                 Console.WriteLine("Enter department ID: ");
                 int departmentIdResponse;
                 string depIdResponse = Console.ReadLine();
-                if (!int.TryParse(depIdResponse, out departmentIdResponse))
-                {
-                    Console.WriteLine("You must enter unique ID of the department from the list");
-                }
+                if (!Helper.IntTypeValidation(depIdResponse, out departmentIdResponse)) { Console.WriteLine("You must enter a valid ID!"); goto department_id_input; }
                 try
                 {
                     newEmployee.Create(nameResponse, surnameResponse, doubleSalaryResponse, companyNameResponse, departmentIdResponse);
@@ -250,35 +232,26 @@ while (true)
                 break;
 
             case (int)Helper.ConsoleMenu.GetListOfAllEmployees:
-                try
-                {
-                    newEmployee.GetAll();
-                }
-                catch (NullOrEmptyException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                try { newEmployee.GetAll(); }
+                catch (NullOrEmptyException ex) { Console.WriteLine(ex.Message); }
                 break;
 
-            case (int)Helper.ConsoleMenu.GetListOfEmployeesByDepID: // needs to throw exception No employees have been added to dep
+            case (int)Helper.ConsoleMenu.GetListOfEmployeesByDepID: // OK! NEED LAST TEST!
+            company_id_user:
                 Console.WriteLine("Enter Company ID: ");
                 newCompany.GetAll();
                 int companyIdResponse;
                 string compIdResponse = Console.ReadLine();
-                if (!int.TryParse(compIdResponse, out companyIdResponse))
-                {
-                    Console.WriteLine("Choose a valid Company ID");
-                }
+                if (!Helper.IntTypeValidation(compIdResponse, out companyIdResponse)) { Console.WriteLine("Please choose Company ID from the list"); }
+                try { newCompany.GetAllDepartmentsByID(companyIdResponse); }
+                catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); goto company_id_user; }
+            department_id_user:
                 Console.WriteLine("Enter Department ID: ");
-                newCompany.GetAllDepartmentsByID(companyIdResponse);
                 int department_id_response;
                 string dep_id_response = Console.ReadLine();
-                if (!int.TryParse(dep_id_response, out department_id_response))
-                {
-                    Console.WriteLine("Choose valid Department ID");
-                }
-
-                newEmployee.GetAllByDepartmentId(department_id_response);
+                if (!Helper.IntTypeValidation(dep_id_response, out department_id_response)) { Console.WriteLine("Please input valid Department Id "); goto department_id_user; }
+                try { newEmployee.GetAllByDepartmentId(department_id_response); }
+                catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); goto department_id_user; }
                 break;
 
             case (int)Helper.ConsoleMenu.GetListOfEmployeesByCompanyName:
