@@ -37,7 +37,7 @@ public class CompanyServices
     }
     public void GetAll()
     {
-        if (AppDbContextSim.companies[0] is null) { throw new NullOrEmptyException("No companies have been created yet!"); }
+        if (AppDbContextSim.companies[0] is null) { throw new NonExistentEntityException("No companies have been created yet!"); }
         foreach (Company company in AppDbContextSim.companies)
         {
             if (company is null) break;

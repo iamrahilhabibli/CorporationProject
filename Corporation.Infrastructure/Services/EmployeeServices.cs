@@ -75,13 +75,19 @@ public class EmployeeServices
     }
     public void GetAllByCompanyName(string companyname)
     {
-        for (int i = 0; i < AppDbContextSim.employees.Length; i++)
+        bool foundEmployees = false;
+
+        foreach (var employee in AppDbContextSim.employees)
         {
-            if (AppDbContextSim.employees[i] is null) { break; }
-            else if (AppDbContextSim.employees[i].CompanyName.ToUpper() == companyname.ToUpper())
+            if (employee?.CompanyName?.ToUpper() == companyname.ToUpper())
             {
-                Console.WriteLine($"{AppDbContextSim.employees[i].ToString()}");
+                Console.WriteLine($"{employee.ToString()}");
+                foundEmployees = true;
             }
+        }
+        if (!foundEmployees)
+        {
+            throw new NonExistentEntityException("Employee has not been added to your company");
         }
     }
     public void GetByName(string employeeNameOrSurname)

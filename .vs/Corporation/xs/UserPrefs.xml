@@ -4,19 +4,19 @@
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.ItemProperties.Corporation.ConsoleApp PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Corporation.Infrastructure/Services/EmployeeServices.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Corporation.Infrastructure/Utilities/Helper.cs">
     <Files>
-      <File FileName="Corporation.ConsoleApp/Program.cs" Line="259" Column="49" IsPinned="True" />
+      <File FileName="Corporation.ConsoleApp/Program.cs" Line="67" Column="22" IsPinned="True" />
       <File FileName="Corporation.Infrastructure/Services/DepartmentServices.cs" Line="71" Column="41" />
-      <File FileName="Corporation.Infrastructure/Services/EmployeeServices.cs" Line="79" Column="65" />
-      <File FileName="Corporation.Infrastructure/Services/CompanyServices.cs" Line="71" Column="6" />
+      <File FileName="Corporation.Infrastructure/Services/EmployeeServices.cs" Line="82" Column="39" />
+      <File FileName="Corporation.Infrastructure/Services/CompanyServices.cs" Line="59" Column="1" />
       <File FileName="Corporation.Core/Entities/Employee.cs" Line="1" Column="1" />
-      <File FileName="Corporation.Core/Entities/Department.cs" Line="35" Column="1" />
-      <File FileName="Corporation.Core/Entities/Company.cs" Line="1" Column="1" />
+      <File FileName="Corporation.Core/Entities/Department.cs" />
+      <File FileName="Corporation.Core/Entities/Company.cs" />
       <File FileName="Corporation.Infrastructure/DbContextSim/AppDbContextSim.cs" />
       <File FileName="Corporation.Core/Interfaces/IEntity.cs" />
-      <File FileName="Corporation.Infrastructure/Utilities/Helper.cs" />
-      <File FileName="Corporation.Infrastructure/Utilities/Exceptions/NonExistentEntityException.cs" />
+      <File FileName="Corporation.Infrastructure/Utilities/Helper.cs" Line="30" Column="6" />
+      <File FileName="Corporation.Infrastructure/Utilities/Exceptions/NonExistentEntityException.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -29,11 +29,10 @@
             </Node>
             <Node name="Corporation.Infrastructure" expanded="True">
               <Node name="DbContextSim" expanded="True" />
-              <Node name="Services" expanded="True">
-                <Node name="EmployeeServices.cs" selected="True" />
-              </Node>
+              <Node name="Services" expanded="True" />
               <Node name="Utilities" expanded="True">
                 <Node name="Exceptions" expanded="True" />
+                <Node name="Helper.cs" selected="True" />
               </Node>
             </Node>
           </Node>

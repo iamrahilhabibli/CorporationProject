@@ -10,6 +10,23 @@ public class DepartmentServices
 
     public void Create(string departmentName, int employeelimit, int companyid, string companyname)
     {
+        bool companyExists = false;
+
+        foreach (var companies in AppDbContextSim.companies)
+        {
+            if (AppDbContextSim.companies[0] is null)
+            {
+                throw new NonExistentEntityException("Company does not exist");
+            }
+            else if (companies != null && companies.Id == companyid && companies.Name.ToUpper() == companyname.ToUpper())
+            {
+                companyExists = true;
+                Console.WriteLine($"Department: \"{departmentName}\" is successfully added!");
+                break;
+            }
+        }
+        if (!companyExists) { throw new NonExistentEntityException("Company with given ID and/or name does not exist\n"); }
+
         bool depExists = false;
 
         for (int i = 0; i < indexCounter; i++)
@@ -24,18 +41,6 @@ public class DepartmentServices
 
         // if (employeelimit <= 0) { throw new NegativeLimitException("Employee limit can not be negative"); }
 
-        bool companyExists = false;
-
-        foreach (var companies in AppDbContextSim.companies)
-        {
-            if (companies != null && companies.Id == companyid && companies.Name.ToUpper() == companyname.ToUpper())
-            {
-                companyExists = true;
-                Console.WriteLine($"Department: \"{departmentName}\" is successfully added!");
-                break;
-            }
-        }
-        if (!companyExists) { throw new NonExistentEntityException("Company with given ID and/or name does not exist\n"); }
 
         Department newDepartment = new(departmentName, employeelimit, companyid, companyname);
         AppDbContextSim.departments[indexCounter++] = newDepartment;
