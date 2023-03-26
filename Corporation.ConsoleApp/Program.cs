@@ -29,7 +29,8 @@ while (true)
 [10] View employees by department ID
 [11] View employees by company name
 [12] Search for an employee by name
-[13] Remove employee by unique ID");
+[13] Remove employee by unique ID
+[14] Remove department by unique ID");
 
     int menuItems;
     string? userRes = Console.ReadLine();
@@ -77,7 +78,11 @@ while (true)
                 Console.WriteLine("Enter Employee Limit");
                 int employeeLimit;
                 string employeeLimitResponse = Console.ReadLine();
-                if (!Helper.EmployeeLimitValidation(employeeLimitResponse, out employeeLimit)) { goto employee_limit; }
+                if (!Helper.EmployeeLimitValidation(employeeLimitResponse, out employeeLimit))
+                {
+                    Console.WriteLine("Enter correct format");
+                    goto employee_limit;
+                }
             company_Id:
                 Console.WriteLine("Enter Company ID department belongs to: ");
                 try { newCompany.GetAll(); } // If no companies exist  
@@ -120,7 +125,11 @@ while (true)
 
             case (int)Helper.ConsoleMenu.GetListOfDepartmentsByCompanyName:
             listing_departments_byName:
-                try { newCompany.GetAll(); Console.WriteLine("Enter the name of your Company"); }
+                try
+                {
+                    newCompany.GetAll();
+                    Console.WriteLine("Enter the name of your Company");
+                }
                 catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); }
                 try { string listByNameResponse = Console.ReadLine(); newCompany.GetAllDepartmentsByName(listByNameResponse); }
                 catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); }
@@ -185,7 +194,11 @@ while (true)
                 try { newCompany.GetAll(); }
                 catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); break; }
                 string companyNameResponse = Console.ReadLine();
-                if (!Helper.EntityNameValidation(companyNameResponse)) { Console.WriteLine("Company name field can not be empty,contain symbols that are not allowed or include digits"); goto employee_company; }
+                if (!Helper.EntityNameValidation(companyNameResponse))
+                {
+                    Console.WriteLine("Company name field can not be empty,contain symbols that are not allowed or include digits");
+                    goto employee_company;
+                }
                 try { newCompany.GetAllDepartmentsByName(companyNameResponse); }
                 catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); break; }
                 Console.WriteLine();
@@ -199,8 +212,11 @@ while (true)
                 {
                     Console.WriteLine(ex.Message); goto department_id_input;
                 }
-
-                try { newEmployee.Create(nameResponse, surnameResponse, doubleSalaryResponse, companyNameResponse, departmentIdResponse); Console.WriteLine("Employee Successfully added!"); }
+                try
+                {
+                    newEmployee.Create(nameResponse, surnameResponse, doubleSalaryResponse, companyNameResponse, departmentIdResponse);
+                    Console.WriteLine("Employee Successfully added!");
+                }
                 catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); break; }
                 catch (Corporation.Infrastructure.Utilities.Exceptions.CapacityLimitException ex) { Console.WriteLine(ex.Message); break; }
                 break;
@@ -210,7 +226,7 @@ while (true)
                 catch (NullOrEmptyException ex) { Console.WriteLine(ex.Message); }
                 break;
 
-            case (int)Helper.ConsoleMenu.GetListOfEmployeesByDepID:
+            case (int)Helper.ConsoleMenu.GetListOfEmployeesByDepID: // CHECK THIS
             company_id_user:
                 Console.WriteLine("Enter Company ID: ");
                 try { newCompany.GetAll(); }
@@ -264,7 +280,11 @@ while (true)
                 Console.WriteLine("Enter employees department ID");
                 int removeEmployeeDepIdResponse;
                 string remove_employee_dep_response = Console.ReadLine();
-                if (!Helper.IntTypeValidation(remove_employee_dep_response, out removeEmployeeDepIdResponse)) { Console.WriteLine("Enter valid format for Department ID"); goto remove_employee_department; }
+                if (!Helper.IntTypeValidation(remove_employee_dep_response, out removeEmployeeDepIdResponse))
+                {
+                    Console.WriteLine("Enter valid format for Department ID");
+                    goto remove_employee_department;
+                }
                 try { newEmployee.GetAllByDepartmentId(removeEmployeeDepIdResponse); }
                 catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); }
                 catch (Exception ex) { Console.WriteLine(ex.Message); }
@@ -272,9 +292,46 @@ while (true)
                 Console.WriteLine("Please provide the ID of the Employee that you want to remove.");
                 int removeEmployeeIdResponse;
                 string remove_employee_id_response = Console.ReadLine();
-                if (!Helper.IntTypeValidation(remove_employee_id_response, out removeEmployeeIdResponse)) { Console.WriteLine("Please enter correct format for the Unique ID"); goto remove_employee_id_response; }
-                try { newEmployee.RemoveEmployee(removeEmployeeIdResponse); Console.WriteLine("Employee Removed!1"); }
+                if (!Helper.IntTypeValidation(remove_employee_id_response, out removeEmployeeIdResponse))
+                {
+                    Console.WriteLine("Please enter correct format for the Unique ID");
+                    goto remove_employee_id_response;
+                }
+                try { newEmployee.RemoveEmployee(removeEmployeeIdResponse); Console.WriteLine("Employee Removed!"); }
                 catch (LastIndexFullException ex) { Console.WriteLine(ex.Message); break; }
+                break;
+
+            case (int)Helper.ConsoleMenu.RemoveDepartment:
+                try { newCompany.GetAll(); }
+                catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); break; }
+            company_department_remove:
+                Console.WriteLine("Enter the Name of your Company: ");
+                string companyDepRemove = Console.ReadLine();
+                if (!Helper.EntityNameValidation(companyDepRemove))
+                {
+                    Console.WriteLine("Enter correct format for company name"); goto company_department_remove;
+                }
+                try { newCompany.GetAllDepartmentsByName(companyDepRemove); }
+                catch (NonExistentEntityException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    break;
+                }
+            dep_remove:
+                Console.WriteLine("Please provide the ID of the Department that you want to remove");
+                int departmentRemoveResponse;
+                string dep_remove_response = Console.ReadLine();
+                if (!Helper.IntTypeValidation(dep_remove_response, out departmentRemoveResponse))
+                {
+                    Console.WriteLine("Please enter correct format");
+                    goto dep_remove;
+                }
+                try { newDepartment.RemoveDepartment(departmentRemoveResponse); Console.WriteLine("Department Removed!"); }
+                catch (LastIndexFullException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    break;
+                }
                 break;
         }
     }

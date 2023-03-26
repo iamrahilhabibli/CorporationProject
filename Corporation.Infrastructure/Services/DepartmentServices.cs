@@ -97,6 +97,19 @@ public class DepartmentServices
         }
         throw new UnauthorizedAccessException("Department does not belong to your company");
     }
+    public void RemoveDepartment(int id)
+    {
+        for (int i = 0; i < AppDbContextSim.departments.Length; i++)
+        {
+            if (i == AppDbContextSim.departments.Length - 1 && AppDbContextSim.departments[i] != null) { throw new LastIndexFullException("Array resize is required!"); }
+            if (AppDbContextSim.departments[i].Id == id)
+            {
+                AppDbContextSim.departments[i] = AppDbContextSim.departments[AppDbContextSim.departments.Length - 1];
+                AppDbContextSim.departments[AppDbContextSim.departments.Length - 1] = null;
+                break;
+            }
+        }
+    }
 }
 
 

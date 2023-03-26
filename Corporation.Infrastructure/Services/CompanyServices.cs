@@ -65,6 +65,16 @@ public class CompanyServices
 
     public void GetAllDepartmentsByName(string name)
     {
+        bool compNameExists = false;
+        for (int i = 0; i < indexCounter; i++)
+        {
+            if (AppDbContextSim.companies[i].Name.ToUpper() == name.ToUpper())
+            {
+                compNameExists = true;
+                break;
+            }
+        }
+        if (!compNameExists) { throw new NonExistentEntityException("This company does not exist"); }
         for (int i = 0; i < AppDbContextSim.departments.Length; i++)
         {
             if (AppDbContextSim.departments[0] is null) { throw new NonExistentEntityException("Departments do not exist for this Company!"); }

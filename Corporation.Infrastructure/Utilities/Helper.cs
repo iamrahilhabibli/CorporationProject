@@ -20,6 +20,8 @@ public static class Helper
         GetListOfEmployeesByCompanyName,
         SearchEmployeeByName,
         RemoveEmployee,
+        RemoveDepartment,
+        RemoveCompany
     };
     public static bool NameValidation(string nameResponse)
     {
