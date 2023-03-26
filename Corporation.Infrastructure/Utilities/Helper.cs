@@ -18,7 +18,8 @@ public static class Helper
         GetListOfAllEmployees,
         GetListOfEmployeesByDepID,
         GetListOfEmployeesByCompanyName,
-        SearchEmployeeByName
+        SearchEmployeeByName,
+        UpdateEmployeeSalary,
     };
     public static bool NameValidation(string nameResponse)
     {

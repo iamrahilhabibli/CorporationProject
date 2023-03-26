@@ -2,6 +2,8 @@
 using Corporation.Core.Entities;
 using Corporation.Infrastructure.DbContextSim;
 using Corporation.Infrastructure.Utilities.Exceptions;
+
+
 namespace Corporation.Infrastructure.Services;
 
 public class DepartmentServices

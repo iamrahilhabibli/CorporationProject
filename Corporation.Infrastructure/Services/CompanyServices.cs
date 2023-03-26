@@ -4,6 +4,7 @@ using Corporation.Core.Entities;
 using Corporation.Infrastructure.DbContextSim;
 using Corporation.Infrastructure.Utilities.Exceptions;
 
+
 public class CompanyServices
 {
     public static int indexCounter = 0;
@@ -44,22 +45,24 @@ public class CompanyServices
             Console.WriteLine($"Company ID: {company.Id}, Company Name: {company.Name}");
         }
     }
-
     public void GetAllDepartmentsByID(int id)
     {
+        if (AppDbContextSim.departments is null) throw new NonExistentEntityException("Departments do not exist");
+        bool departmentExists = false;
         for (int i = 0; i < AppDbContextSim.departments.Length; i++)
         {
-            if (AppDbContextSim.departments[i] is null) { break; }
-            else if (AppDbContextSim.departments[i].CompanyId == id)
+            if (AppDbContextSim.departments[i] != null && AppDbContextSim.departments[i].CompanyId == id)
             {
+                departmentExists = true;
                 Console.WriteLine(AppDbContextSim.departments[i].ToString());
             }
-            else
-            {
-                throw new NonExistentEntityException("Company with given ID does not exist!");
-            }
+        }
+        if (!departmentExists)
+        {
+            throw new NonExistentEntityException("Department with given ID does not exist for this company");
         }
     }
+
     public void GetAllDepartmentsByName(string name)
     {
         for (int i = 0; i < AppDbContextSim.departments.Length; i++)
@@ -70,10 +73,6 @@ public class CompanyServices
                 Console.WriteLine(AppDbContextSim.departments[i].ToString());
             }
         }
-    }
-    public void GetAllDepartmentsByNameAndId(string name, int id)
-    {
-
     }
 }
 

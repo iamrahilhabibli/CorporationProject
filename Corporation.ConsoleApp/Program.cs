@@ -1,6 +1,4 @@
-﻿using System.Data;
-using System.Numerics;
-using System.Xml;
+﻿
 using Corporation.Core.Entities;
 using Corporation.Infrastructure.DbContextSim;
 using Corporation.Infrastructure.Services;
@@ -99,15 +97,14 @@ while (true)
                 catch (Exception ex) { Console.WriteLine(ex.Message); }
                 break;
 
-            case (int)Helper.ConsoleMenu.GetListOfAllDepartments: // EXCEPTION MUST BE THROWN IF NO DEPARTMENTS EXIST
+            case (int)Helper.ConsoleMenu.GetListOfAllDepartments:
                 try { newDepartment.GetAll(); }
-                catch (NullOrEmptyException ex) { Console.WriteLine(ex.Message); }
+                catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); break; }
                 break;
 
-            case (int)Helper.ConsoleMenu.GetListOfDepartmentsByCompanyID: // OK!
+            case (int)Helper.ConsoleMenu.GetListOfDepartmentsByCompanyID:
             listing_departments_byId:
-                Console.WriteLine("Enter the Unique ID of your Company to list all your departments");
-                try { newCompany.GetAll(); }
+                try { newCompany.GetAll(); Console.WriteLine("Enter the Unique ID of your Company to list all your departments"); }
                 catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); break; }
                 int listById;
                 string listByIdResponse = Console.ReadLine();
@@ -116,10 +113,11 @@ while (true)
                     Console.WriteLine("Incorrect format please enter an integer corresponding to your Companies unique ID");
                     goto listing_departments_byId;
                 }
-                newCompany.GetAllDepartmentsByID(listById);
+                try { newCompany.GetAllDepartmentsByID(listById); }
+                catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); }
                 break;
 
-            case (int)Helper.ConsoleMenu.GetListOfDepartmentsByCompanyName: // ok!
+            case (int)Helper.ConsoleMenu.GetListOfDepartmentsByCompanyName:
             listing_departments_byName:
                 try { newCompany.GetAll(); Console.WriteLine("Enter the name of your Company"); }
                 catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); }
@@ -127,7 +125,7 @@ while (true)
                 catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); }
                 break;
 
-            case (int)Helper.ConsoleMenu.UpdateDepartment: // NOT FINISHED INPUT VALIDATION MUST BE CHECKED
+            case (int)Helper.ConsoleMenu.UpdateDepartment:
             company_response:
                 try { newCompany.GetAll(); }
                 catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); break; }
@@ -210,7 +208,7 @@ while (true)
                 catch (NullOrEmptyException ex) { Console.WriteLine(ex.Message); }
                 break;
 
-            case (int)Helper.ConsoleMenu.GetListOfEmployeesByDepID: // OK!
+            case (int)Helper.ConsoleMenu.GetListOfEmployeesByDepID:
             company_id_user:
                 Console.WriteLine("Enter Company ID: ");
                 try { newCompany.GetAll(); }
@@ -229,7 +227,7 @@ while (true)
                 catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); goto department_id_user; }
                 break;
 
-            case (int)Helper.ConsoleMenu.GetListOfEmployeesByCompanyName: // ok!
+            case (int)Helper.ConsoleMenu.GetListOfEmployeesByCompanyName:
                 try
                 {
                     newCompany.GetAll(); Console.WriteLine("Enter your Company name");
@@ -239,7 +237,7 @@ while (true)
                 catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); break; }
                 break;
 
-            case (int)Helper.ConsoleMenu.SearchEmployeeByName: // PUT THIS IN TRY CATCH AND ADD EXCEPTIONS
+            case (int)Helper.ConsoleMenu.SearchEmployeeByName:
             search_employee_name:
                 try
                 {
