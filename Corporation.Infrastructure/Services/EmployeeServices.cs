@@ -46,7 +46,7 @@ public class EmployeeServices
             }
         }
         if (department == null) { throw new NonExistentEntityException("Department with given ID does not exist"); }
-        if (department.CurrentEmployeeCount >= department.EmployeeLimit) { throw new Utilities.Exceptions.CapacityLimitException("The department has reached the maximum number of employees."); }
+        if (department.CurrentEmployeeCount >= department.EmployeeLimit) { throw new Utilities.Exceptions.CapacityLimitException("Department has reached the maximum number of employees."); }
 
         Employee newEmployee = new Employee(name, surname, salary, companyname, departmentid);
         AppDbContextSim.employees[indexCounter++] = newEmployee;

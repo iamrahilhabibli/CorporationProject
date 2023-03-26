@@ -79,6 +79,18 @@ public class DepartmentServices
             else { Console.WriteLine(AppDbContextSim.departments[i].ToString()); }
         }
     }
+    public bool doesDepartmentBelongToCompany(string name, int id)
+    {
+        for (int i = 0; i < AppDbContextSim.departments.Length; i++)
+        {
+            if (AppDbContextSim.departments[i] is null) { break; }
+            else if (i == id && AppDbContextSim.departments[i] != null && AppDbContextSim.departments[id].CompanyName.ToUpper() == name.ToUpper())
+            {
+                return true;
+            }
+        }
+        throw new UnauthorizedAccessException("Department does not belong to your company");
+    }
 }
 
 

@@ -168,15 +168,18 @@ while (true)
                 Console.WriteLine("Enter employee name: ");
                 string nameResponse = Console.ReadLine();
                 if (!Helper.NameValidation(nameResponse)) { Console.WriteLine("Name field can not be empty,contain symbols or include digits"); goto name_response; }
+
             surname_response:
                 Console.WriteLine("Enter employee surname");
                 string surnameResponse = Console.ReadLine();
                 if (!Helper.NameValidation(surnameResponse)) { Console.WriteLine("Surname field can not be empty, contain symbols or include digits"); goto surname_response; }
+
             salary_response:
                 Console.WriteLine("Enter employee Salary");
                 double doubleSalaryResponse;
                 string salaryResponse = Console.ReadLine();
                 if (!Helper.DoubleSalaryValidation(salaryResponse, out doubleSalaryResponse)) { goto salary_response; }
+
             employee_company:
                 Console.WriteLine("Enter your company name: ");
                 try { newCompany.GetAll(); }
@@ -191,11 +194,13 @@ while (true)
                 int departmentIdResponse;
                 string depIdResponse = Console.ReadLine();
                 if (!Helper.IntTypeValidation(depIdResponse, out departmentIdResponse)) { Console.WriteLine("You must enter a valid ID!"); goto department_id_input; }
-                try
+                try { if (!newDepartment.doesDepartmentBelongToCompany(companyNameResponse, departmentIdResponse)) ; }
+                catch (UnauthorizedAccessException ex)
                 {
-                    newEmployee.Create(nameResponse, surnameResponse, doubleSalaryResponse, companyNameResponse, departmentIdResponse);
-                    Console.WriteLine("Employee Successfully added!");
+                    Console.WriteLine(ex.Message); goto department_id_input;
                 }
+
+                try { newEmployee.Create(nameResponse, surnameResponse, doubleSalaryResponse, companyNameResponse, departmentIdResponse); Console.WriteLine("Employee Successfully added!"); }
                 catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); break; }
                 catch (Corporation.Infrastructure.Utilities.Exceptions.CapacityLimitException ex) { Console.WriteLine(ex.Message); break; }
                 break;

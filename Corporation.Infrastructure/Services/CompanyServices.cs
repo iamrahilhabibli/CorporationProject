@@ -72,5 +72,9 @@ public class CompanyServices
             }
         }
     }
+    public void GetAllDepartmentsByNameAndId(string name, int id)
+    {
+
+    }
 }
 
