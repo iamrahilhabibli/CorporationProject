@@ -1,18 +1,12 @@
 ﻿<Properties StartupConfiguration="{BF2DEA78-6B93-4AB5-85F4-3CA412E57CCB}|Default">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.ItemProperties.Corporation.ConsoleApp PreferredExecutionTarget="MonoDevelop.Default" />
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.Workbench ActiveDocument="Corporation.ConsoleApp/Program.cs">
     <Files>
-      <File FileName="Corporation.ConsoleApp/Program.cs" Line="105" Column="74" IsPinned="True" />
-      <File FileName="../CorporationFinal/CorporationProject/Corporation.Infrastructure/Services/CompanyServices.cs" Line="15" Column="34" />
+      <File FileName="Corporation.ConsoleApp/Program.cs" Line="159" Column="107" IsPinned="True" />
       <File FileName="Corporation.Infrastructure/Services/CompanyServices.cs" Line="6" Column="1" />
-      <File FileName="../CorporationFinal/CorporationProject/Corporation.Infrastructure/Services/DepartmentServices.cs" Line="3" Column="47" />
-      <File FileName="Corporation.Infrastructure/Services/DepartmentServices.cs" Line="5" Column="1" />
+      <File FileName="Corporation.Infrastructure/Services/DepartmentServices.cs" Line="60" Column="1" />
       <File FileName="Corporation.Core/Entities/Employee.cs" />
       <File FileName="Corporation.Core/Entities/Department.cs" />
       <File FileName="Corporation.Core/Entities/Company.cs" />
@@ -22,7 +16,8 @@
       <File FileName="Corporation.Infrastructure/Utilities/Exceptions/NonExistentEntityException.cs" />
       <File FileName="Corporation.Infrastructure/Utilities/Exceptions/UnauthorisedAccess.cs" />
       <File FileName="Corporation.Infrastructure/Utilities/Exceptions/IdenticalSalaryException.cs" />
-      <File FileName="Corporation.Infrastructure/Services/EmployeeServices.cs" Line="1" Column="1" />
+      <File FileName="Corporation.Infrastructure/Services/EmployeeServices.cs" />
+      <File FileName="Corporation.Infrastructure/Utilities/Exceptions/InvalidLimitException.cs" Line="5" Column="67" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -47,4 +42,8 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>

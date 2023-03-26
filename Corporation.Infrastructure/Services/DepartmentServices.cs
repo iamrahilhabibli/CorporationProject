@@ -55,6 +55,10 @@ public class DepartmentServices
             {
                 if (i == departmentId)
                 {
+                    if (AppDbContextSim.departments[i].CurrentEmployeeCount > newEmployeeLimit)
+                    {
+                        throw new InvalidLimitException("New limit can not be lower than current employee count");
+                    }
                     if (AppDbContextSim.departments[i].Name.ToUpper() == newDepartmentName.ToUpper() && AppDbContextSim.departments[i].EmployeeLimit == newEmployeeLimit)
                     {
                         throw new IdenticalNameException("The new values for department is exactly same as old values.");

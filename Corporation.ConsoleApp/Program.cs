@@ -156,6 +156,7 @@ while (true)
                 string newEmpLimitResponse = Console.ReadLine();
                 if (!Helper.EmployeeLimitValidation(newEmpLimitResponse, out newEmpLimit)) { goto new_employee_limit; }
                 try { newDepartment.Update(updateByName, newDepName, newEmpLimit); Console.WriteLine("Department successfully updated!"); }
+                catch (InvalidLimitException ex) { Console.WriteLine(ex.Message); goto new_employee_limit; }
                 catch (IdenticalNameException ex) { Console.WriteLine(ex.Message); goto new_department_name; }
                 catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); goto update_department_id; }
                 break;
