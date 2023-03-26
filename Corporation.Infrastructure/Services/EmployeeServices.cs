@@ -63,16 +63,22 @@ public class EmployeeServices
     }
     public void GetAllByDepartmentId(int id)
     {
+        bool depExists = false;
+        foreach (var department in AppDbContextSim.departments)
+        {
+            if (department != null && department.Id == id) { depExists = true; break; }
+        }
+        if (!depExists) { throw new NonExistentEntityException($"Department with ID {id} does not exist"); }
+
+        if (AppDbContextSim.employees[0] is null) { throw new NonExistentEntityException("Department does not contain employees"); }
+
         for (int i = 0; i < AppDbContextSim.employees.Length; i++)
         {
             if (AppDbContextSim.employees[i] is null) { break; }
-            else if (AppDbContextSim.employees[i].DepartmentId == id)
-            {
-                Console.WriteLine($"{AppDbContextSim.employees[i].ToString()}");
-            }
-            else { throw new NonExistentEntityException("Given department does not exist!"); }
+            else if (AppDbContextSim.employees[i].DepartmentId == id) { Console.WriteLine($"{AppDbContextSim.employees[i].ToString()}"); }
         }
     }
+
     public void GetAllByCompanyName(string companyname)
     {
         bool foundEmployees = false;
@@ -85,10 +91,7 @@ public class EmployeeServices
                 foundEmployees = true;
             }
         }
-        if (!foundEmployees)
-        {
-            throw new NonExistentEntityException("Employee has not been added to your company");
-        }
+        if (!foundEmployees) { throw new NonExistentEntityException("Employee has not been added to your company"); }
     }
     public void GetByName(string employeeNameOrSurname)
     {
@@ -110,6 +113,19 @@ public class EmployeeServices
             }
         }
         if (!nameExists) { throw new NotFound("Employee not found!"); }
+    }
+    public void RemoveEmployee(int id)
+    {
+        for (int i = 0; i < AppDbContextSim.employees.Length; i++)
+        {
+            if (i == AppDbContextSim.employees.Length - 1 && AppDbContextSim.employees[i] != null) { throw new LastIndexFullException("Array resize is required!"); }
+            if (AppDbContextSim.employees[i].Id == id)
+            {
+                AppDbContextSim.employees[i] = AppDbContextSim.employees[AppDbContextSim.employees.Length - 1];
+                AppDbContextSim.employees[AppDbContextSim.employees.Length - 1] = null;
+                break;
+            }
+        }
     }
 }
 

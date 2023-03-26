@@ -9,7 +9,7 @@ CompanyServices newCompany = new CompanyServices();
 DepartmentServices newDepartment = new DepartmentServices();
 //Department new_department = new Department();
 EmployeeServices newEmployee = new EmployeeServices();
-Employee new_employee = new Employee();
+
 
 while (true)
 {
@@ -28,7 +28,8 @@ while (true)
 [9] View all employees
 [10] View employees by department ID
 [11] View employees by company name
-[12] Search for an employee by name");
+[12] Search for an employee by name
+[13] Remove employee by unique ID");
 
     int menuItems;
     string? userRes = Console.ReadLine();
@@ -248,6 +249,32 @@ while (true)
                 }
                 catch (InvalidNameInput ex) { Console.WriteLine(ex.Message); goto search_employee_name; }
                 catch (NotFound ex) { Console.WriteLine(ex.Message); break; }
+                break;
+
+            case (int)Helper.ConsoleMenu.RemoveEmployee:
+            remove_employee_company:
+                try { newCompany.GetAll(); }
+                catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); break; }
+                Console.WriteLine("Enter your company name");
+                string removeEmployeeCompanyResponse = Console.ReadLine();
+                if (!Helper.EntityNameValidation(removeEmployeeCompanyResponse)) { Console.WriteLine("Please enter correct format for company name"); goto remove_employee_company; }
+                try { newCompany.GetAllDepartmentsByName(removeEmployeeCompanyResponse); }
+                catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); break; }
+            remove_employee_department:
+                Console.WriteLine("Enter employees department ID");
+                int removeEmployeeDepIdResponse;
+                string remove_employee_dep_response = Console.ReadLine();
+                if (!Helper.IntTypeValidation(remove_employee_dep_response, out removeEmployeeDepIdResponse)) { Console.WriteLine("Enter valid format for Department ID"); goto remove_employee_department; }
+                try { newEmployee.GetAllByDepartmentId(removeEmployeeDepIdResponse); }
+                catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); }
+                catch (Exception ex) { Console.WriteLine(ex.Message); }
+            remove_employee_id_response:
+                Console.WriteLine("Please provide the ID of the Employee that you want to remove.");
+                int removeEmployeeIdResponse;
+                string remove_employee_id_response = Console.ReadLine();
+                if (!Helper.IntTypeValidation(remove_employee_id_response, out removeEmployeeIdResponse)) { Console.WriteLine("Please enter correct format for the Unique ID"); goto remove_employee_id_response; }
+                try { newEmployee.RemoveEmployee(removeEmployeeIdResponse); Console.WriteLine("Employee Removed!1"); }
+                catch (LastIndexFullException ex) { Console.WriteLine(ex.Message); break; }
                 break;
         }
     }

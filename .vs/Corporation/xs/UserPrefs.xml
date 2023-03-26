@@ -2,43 +2,36 @@
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.Corporation.ConsoleApp PreferredExecutionTarget="MonoDevelop.Default" />
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Corporation.ConsoleApp/Program.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Corporation.Infrastructure/Services/DepartmentServices.cs">
     <Files>
       <File FileName="Corporation.ConsoleApp/Program.cs" Line="159" Column="107" IsPinned="True" />
-      <File FileName="Corporation.Infrastructure/Services/CompanyServices.cs" Line="6" Column="1" />
-      <File FileName="Corporation.Infrastructure/Services/DepartmentServices.cs" Line="60" Column="1" />
-      <File FileName="Corporation.Core/Entities/Employee.cs" />
+      <File FileName="Corporation.Infrastructure/Services/CompanyServices.cs" Line="1" Column="1" />
+      <File FileName="Corporation.Infrastructure/Services/DepartmentServices.cs" Line="1" Column="1" />
+      <File FileName="Corporation.Core/Entities/Employee.cs" Line="1" Column="1" />
       <File FileName="Corporation.Core/Entities/Department.cs" />
       <File FileName="Corporation.Core/Entities/Company.cs" />
-      <File FileName="Corporation.Infrastructure/DbContextSim/AppDbContextSim.cs" />
-      <File FileName="Corporation.Core/Interfaces/IEntity.cs" />
-      <File FileName="Corporation.Infrastructure/Utilities/Helper.cs" />
-      <File FileName="Corporation.Infrastructure/Utilities/Exceptions/NonExistentEntityException.cs" />
-      <File FileName="Corporation.Infrastructure/Utilities/Exceptions/UnauthorisedAccess.cs" />
-      <File FileName="Corporation.Infrastructure/Utilities/Exceptions/IdenticalSalaryException.cs" />
-      <File FileName="Corporation.Infrastructure/Services/EmployeeServices.cs" />
-      <File FileName="Corporation.Infrastructure/Utilities/Exceptions/InvalidLimitException.cs" Line="5" Column="67" />
+      <File FileName="Corporation.Infrastructure/Services/EmployeeServices.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Corporation" expanded="True">
-            <Node name="Corporation.ConsoleApp" expanded="True">
-              <Node name="Program.cs" selected="True" />
-            </Node>
+            <Node name="Corporation.ConsoleApp" expanded="True" />
             <Node name="Corporation.Core" expanded="True">
               <Node name="Entities" expanded="True" />
-              <Node name="Interfaces" expanded="True" />
             </Node>
             <Node name="Corporation.Infrastructure" expanded="True">
               <Node name="DbContextSim" expanded="True" />
-              <Node name="Services" expanded="True" />
-              <Node name="Utilities" expanded="True">
-                <Node name="Exceptions" expanded="True" />
+              <Node name="Services" expanded="True">
+                <Node name="DepartmentServices.cs" selected="True" />
               </Node>
+              <Node name="Utilities" expanded="True" />
             </Node>
           </Node>
         </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
