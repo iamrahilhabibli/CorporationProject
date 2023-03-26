@@ -99,15 +99,33 @@ public class DepartmentServices
     }
     public void RemoveDepartment(int id)
     {
+        bool departmentExists = false;
+
         for (int i = 0; i < AppDbContextSim.departments.Length; i++)
         {
-            if (i == AppDbContextSim.departments.Length - 1 && AppDbContextSim.departments[i] != null) { throw new LastIndexFullException("Array resize is required!"); }
-            if (AppDbContextSim.departments[i].Id == id)
+            if (AppDbContextSim.departments[i] != null && AppDbContextSim.departments[i].Id == id)
             {
-                AppDbContextSim.departments[i] = AppDbContextSim.departments[AppDbContextSim.departments.Length - 1];
-                AppDbContextSim.departments[AppDbContextSim.departments.Length - 1] = null;
+                departmentExists = true;
+                AppDbContextSim.departments[i] = null;
                 break;
             }
+        }
+        if (!departmentExists)
+        {
+            throw new NonExistentEntityException("Department does not exist");
+        }
+        int indexMover = 0;
+        for (int i = 0; i < AppDbContextSim.departments.Length; i++)
+        {
+            if (AppDbContextSim.departments[i] != null)
+            {
+                AppDbContextSim.departments[indexMover] = AppDbContextSim.departments[i];
+                indexMover++;
+            }
+        }
+        for (int i = indexMover; i < AppDbContextSim.departments.Length; i++)
+        {
+            AppDbContextSim.departments[i] = null;
         }
     }
 }

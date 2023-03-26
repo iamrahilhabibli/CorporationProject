@@ -116,15 +116,32 @@ public class EmployeeServices
     }
     public void RemoveEmployee(int id)
     {
+        bool employeeExists = false;
         for (int i = 0; i < AppDbContextSim.employees.Length; i++)
         {
-            if (i == AppDbContextSim.employees.Length - 1 && AppDbContextSim.employees[i] != null) { throw new LastIndexFullException("Array resize is required!"); }
-            if (AppDbContextSim.employees[i].Id == id)
+            if (AppDbContextSim.employees[i] != null && AppDbContextSim.employees[i].Id == id)
             {
-                AppDbContextSim.employees[i] = AppDbContextSim.employees[AppDbContextSim.employees.Length - 1];
-                AppDbContextSim.employees[AppDbContextSim.employees.Length - 1] = null;
+                employeeExists = true;
+                AppDbContextSim.employees[i] = null;
                 break;
             }
+        }
+        if (!employeeExists)
+        {
+            throw new NonExistentEntityException("This employee does not exist");
+        }
+        int indexMover = 0;
+        for (int i = 0; i < AppDbContextSim.employees.Length; i++)
+        {
+            if (AppDbContextSim.employees[i] != null)
+            {
+                AppDbContextSim.employees[indexMover] = AppDbContextSim.employees[i];
+                indexMover++;
+            }
+        }
+        for (int i = indexMover; i < AppDbContextSim.employees.Length; i++)
+        {
+            AppDbContextSim.employees[i] = null;
         }
     }
 }

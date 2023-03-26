@@ -1,5 +1,6 @@
 ﻿namespace Corporation.Infrastructure.Services;
 using System;
+using System.Xml.Linq;
 using Corporation.Core.Entities;
 using Corporation.Infrastructure.DbContextSim;
 using Corporation.Infrastructure.Utilities.Exceptions;
@@ -82,6 +83,35 @@ public class CompanyServices
             {
                 Console.WriteLine(AppDbContextSim.departments[i].ToString());
             }
+        }
+    }
+    public void RemoveCompany(int id)
+    {
+        bool compIdExists = false;
+        for (int i = 0; i < AppDbContextSim.companies.Length; i++)
+        {
+            if (AppDbContextSim.companies[i] != null && AppDbContextSim.companies[i].Id == id)
+            {
+                compIdExists = true;
+
+                AppDbContextSim.companies[i] = null;
+                break;
+            }
+        }
+        if (!compIdExists) { throw new NonExistentEntityException("This company does not exist"); }
+
+        int indexMover = 0;
+        for (int i = 0; i < AppDbContextSim.companies.Length; i++)
+        {
+            if (AppDbContextSim.companies[i] != null)
+            {
+                AppDbContextSim.companies[indexMover] = AppDbContextSim.companies[i];
+                indexMover++;
+            }
+        }
+        for (int i = indexMover; i < AppDbContextSim.companies.Length; i++)
+        {
+            AppDbContextSim.companies[i] = null;
         }
     }
 }
