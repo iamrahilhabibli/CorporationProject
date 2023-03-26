@@ -65,7 +65,7 @@ while (true)
                 catch (NonExistentEntityException ex) { Console.WriteLine(ex.Message); }
                 break;
 
-            case (int)Helper.ConsoleMenu.CreateDepartment: // LAST INSPECTION STILL REQUIRED!
+            case (int)Helper.ConsoleMenu.CreateDepartment: // ok
             dep_name:
                 Console.WriteLine("Enter Department Name");
                 string departmentName = Console.ReadLine();
@@ -163,7 +163,7 @@ while (true)
                 break;
 
 
-            case (int)Helper.ConsoleMenu.AddEmployee: // NEEDS FIXING
+            case (int)Helper.ConsoleMenu.AddEmployee: // ok
             name_response:
                 Console.WriteLine("Enter employee name: ");
                 string nameResponse = Console.ReadLine();
